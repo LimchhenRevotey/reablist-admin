@@ -10,26 +10,26 @@
 
         <div class="nav-label">Management</div>
         <nav class="nav flex-column">
-            <router-link :to="{ name: Dashboard }" class="nav-link active">
+            <router-link :to="{ name: 'Dashboard' }" class="nav-link active">
                   <layout-grid />   Dashboard
             </router-link>
-            <router-link to="/users" class="nav-link">
+            <router-link :to="{ name: 'UserDiretory' }" class="nav-link">
                 <users /> Users Directory
             </router-link>
-            <router-link to="/roles" class="nav-link">
+            <router-link :to="{ name: 'AccessControl' }" class="nav-link">
                  <lock-keyhole />   Access Control
             </router-link>
         </nav>
 
         <div class="nav-label">Monitoring</div>
         <nav class="nav flex-column">
-            <router-link to="/performance" class="nav-link">
+            <router-link :to="{ name: 'Performance' }" class="nav-link">
                <activity />   Performance
             </router-link>
-            <router-link to="/security" class="nav-link">
+            <router-link :to="{ name: 'SecurityAlerts' }" class="nav-link">
             <alert-triangle />      Security Alerts
             </router-link>
-            <router-link to="/logs" class="nav-link">
+            <router-link :to="{ name: 'AuditTrails' }" class="nav-link">
              <file-text />   Audit Trails
             </router-link>
         </nav>
