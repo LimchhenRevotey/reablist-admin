@@ -4,33 +4,33 @@
 <template>
     <aside id="sidebar">
         <div class="sidebar-brand">
-            
+            <shield-check class="me-2" />
             REABLIST<span class="text-black">ADMIN</span>
         </div>
 
         <div class="nav-label">Management</div>
         <nav class="nav flex-column">
-            <router-link :to="{name: Dashboard}" class="nav-link active">
-                 Dashboard
+            <router-link :to="{ name: Dashboard }" class="nav-link active">
+                  <layout-grid />   Dashboard
             </router-link>
             <router-link to="/users" class="nav-link">
-                 Users Directory
+                <users /> Users Directory
             </router-link>
             <router-link to="/roles" class="nav-link">
-                 Access Control
+                 <lock-keyhole />   Access Control
             </router-link>
         </nav>
 
         <div class="nav-label">Monitoring</div>
         <nav class="nav flex-column">
             <router-link to="/performance" class="nav-link">
-                 Performance
+               <activity />   Performance
             </router-link>
             <router-link to="/security" class="nav-link">
-                 Security Alerts
+            <alert-triangle />      Security Alerts
             </router-link>
             <router-link to="/logs" class="nav-link">
-                 Audit Trails
+             <file-text />   Audit Trails
             </router-link>
         </nav>
 
