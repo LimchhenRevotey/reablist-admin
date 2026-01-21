@@ -1,3 +1,7 @@
+<script setup>
+  
+
+</script>
 <template>
   <div class="wrapper">
     <div class="shape-main"></div>
@@ -68,7 +72,6 @@
 <style scoped>
 /* Reset & Base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
 
 /* Wrapper */
 .wrapper { width: 100vw; height: 100vh; position: relative; background-color: #ffffff; overflow: hidden; display: flex; justify-content: center; align-items: center; }

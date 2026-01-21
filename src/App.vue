@@ -4,8 +4,7 @@
 
 <template>
   
-
-  <RouterView />
+<RouterView></RouterView>
 </template>
 
 <style scoped>

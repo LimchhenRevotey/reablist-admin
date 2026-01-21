@@ -55,5 +55,4 @@
             </table>
         </div>
     </section>
-
 </template>
