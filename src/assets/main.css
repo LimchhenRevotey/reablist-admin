@@ -1,0 +1,45 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('@/assets/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Kantumruy Pro';
+  src: url('@/assets/fonts/KantumruyPro-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', 'Kantumruy Pro', sans-serif;
+}
+/* Paste the contents of your <style> tag here, excluding specific component styles */
+:root {
+    --brand-primary: #13707F;
+    --brand-light: #F0F9FA;
+    --brand-hover: #0E5661;
+    --sidebar-width: 280px;
+    --bg-body: #F8FAFB;
+    --card-radius: 1.25rem;
+    --border-color: #EDF2F7;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-body);
+    color: #1E293B;
+}
+
+/* Add utility classes for transitions */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
