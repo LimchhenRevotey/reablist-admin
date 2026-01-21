@@ -65,10 +65,15 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
-    ? `${to.meta.title} | ReabList`
-    : 'ReabList';
-  next();
+  let token = localStorage.getItem('token');
+  document.title = to.meta.title ? `${to.meta.title} | ReabList`: 'ReabList';
+    if(!token && to.name !== 'Login'){
+    next  ({name: 'Login'});
+  }else if(token && to.name === 'Login'){
+     next  ({name: 'Dashboard'});
+  }else{
+    next();
+  }
 });
 
 
