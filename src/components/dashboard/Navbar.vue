@@ -28,7 +28,7 @@
                     width="40" alt="Admin">
 
             </div>
-            <button type="button" class="btn btn-outline-success position-relative rounded-pill">
+            <button type="button" class="btn btn-outline-success position-relative rounded-circle">
                 <Bell />
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     99+

@@ -16,45 +16,29 @@
         </td>
 
         <td>
-          <span
-            class="badge"
-            :class="
-              user.role?.name .trim().toLowerCase() === 'admin'
-                ? 'bg-primary-subtle text-primary'
-                : 'bg-danger-subtle text-danger'
-            "
-          >
+          <span class="badge" :class="user.role?.name.trim().toLowerCase() === 'admin'
+              ? 'bg-primary-subtle text-primary'
+              : 'bg-danger-subtle text-danger'
+            ">
             {{ user.role?.name }}
           </span>
         </td>
 
         <td>
-          <span
-            class="badge-status"
-            :class="
-              user.status
-                ? 'bg-success-subtle text-success'
-                : 'bg-danger-subtle text-danger'
-            "
-          >
+          <span class="badge-status" :class="user.status
+              ? 'bg-success-subtle text-success'
+              : 'bg-danger-subtle text-danger'
+            ">
             {{ user.status ? "Active" : "Activated" }}
           </span>
         </td>
 
         <td class="text-center">
-          <button
-            class="btn btn-sm action-view"
-            title="View Detail"
-            @click="$emit('view', user)"
-          >
+          <button class="btn btn-sm action-view" title="View Detail" @click="$emit('view', user)">
             <square-pen />
           </button>
 
-          <button
-            class="btn btn-sm action-edit ms-1"
-            title="Update User"
-            @click="$emit('edit', user)"
-          >
+          <button class="btn btn-sm action-edit ms-1" title="Update User" @click="$emit('edit', user)">
             <eye />
           </button>
 
@@ -95,12 +79,14 @@ defineProps({
   font-weight: 700;
   font-size: 0.75rem;
 }
+
 .badge {
   padding: 0.4em 0.8em;
   border-radius: 2rem;
   font-weight: 700;
   font-size: 0.75rem;
 }
+
 .action-view {
   color: #0d6dfd96;
 }
