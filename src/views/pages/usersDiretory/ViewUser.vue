@@ -1,7 +1,10 @@
 <script setup>
-import { onMounted ,ref} from 'vue';
+import { onMounted , ref} from 'vue';
 import { useRoute } from 'vue-router';
 import api from '@/api/api';
+import { useDate } from '@/composible/UseDate';
+
+const { formatDate } = useDate();
 
 const route = useRoute();
 const userId = route.params.id;
@@ -15,7 +18,7 @@ onMounted(() => {
 const viewUser = async() => {
   try {
     const res = await api.get(`/users/${userId}`);
-    user.value = res.data.data.items;
+    user.value = res.data.data;
     console.log(user.value);
     
   } catch (error) {
@@ -36,20 +39,20 @@ const viewUser = async() => {
         <div class="row g-4">
             <div class="col-lg-4">
                 <div class="card p-4 text-center">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+                    <img :src="user?.avatar" alt="User Avatar"
                         class="rounded-circle border mb-3 mx-auto" width="100">
-                    <h5 class="fw-bold mb-1">{{ user.fullname }}</h5>
-                    <p class="text-muted small">{{ user.email }}</p>
-                    <span class="badge bg-primary mx-auto" style="width: fit-content;">{{ user.role?.name }}</span>
+                    <h5 class="fw-bold mb-1">{{ user?.fullname }}</h5>
+                    <p class="text-muted small">{{ user?.email }}</p>
+                    <span class="badge bg-primary mx-auto" style="width: fit-content;">{{ user?.role?.name }}</span>
                     <hr class="my-4">
                     <div class="text-start small">
                         <div class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Account Status:</span>
-                            <span class="text-success fw-bold">{{ user.status ? "Active" : "Inactive" }}</span>
+                            <span class="text-success fw-bold">{{ user?.status ? "ACTIVATED" : "DEACTIVATED" }}</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Member Since:</span>
-                            <span>Oct 24, 2024</span>
+                            <span>{{ formatDate(user?.registeredAt) }}</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span class="text-muted">Last Login:</span>

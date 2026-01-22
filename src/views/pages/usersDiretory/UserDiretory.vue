@@ -93,17 +93,17 @@ function toggleStatus(user) {
 
         <!-- Actions -->
         <template #actions ="{ row }">
-          <button class="btn btn-sm action-view" title="View" @click="viewUser(row)">
+
+          <button class="btn btn-sm action-edit ms-1"  title="View" @click="viewUser(row)">
+            <eye />
+          </button>
+          
+          <button class="btn btn-sm action-view" title="Edit" @click="updateUser(row)" >
             <square-pen />
           </button>
 
-          <button class="btn btn-sm action-edit ms-1" title="Edit" @click="updateUser(row)">
-            <eye />
-          </button>
+          
 
-          <button class="btn btn-sm action-delete ms-1" title="Toggle Status" @click="toggleStatus(row)">
-            <trash />
-          </button>
         </template>
 
       </BaseTable>
