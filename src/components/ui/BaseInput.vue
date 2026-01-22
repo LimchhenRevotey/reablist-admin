@@ -38,7 +38,10 @@ const onInput = (event) => {
 
 .custom-input {
   background-color: #e0ecee;
-  padding: 14px 16px;
+  padding: 12px 14px;
+}
+.custom-input::placeholder {
+    color: #8faab6;
 }
 
 .custom-input:focus {

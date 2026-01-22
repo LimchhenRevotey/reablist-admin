@@ -1,22 +1,27 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore';
 import BaseModal from '../ui/BaseModal.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import BaseButton from '../ui/BaseButton.vue';
+import router from '@/router';
 let authStore = useAuthStore();
 let show = ref(false);
+let loading = ref(false);
 const openModal = () => {
     show.value = true;
 }
-const closeModal = () =>{
+const closeModal = () => {
     show.value = false;
 }
 const handleLogout = async () => {
+    loading.value = true;
     try {
         await authStore.logout();
 
     } catch (error) {
         console.log(error);
-        
+    } finally {
+        loading.value = false;
     }
 }
 </script>
@@ -62,19 +67,33 @@ const handleLogout = async () => {
                 </button>
             </div>
         </aside>
-        <BaseModal 
-            :show="show" 
-            title="Confirm Logout"
-            message="Are you sure you want to log out of the system?"
-            confirmText="Logout"
-            @close="closeModal"
-            @confirm="handleLogout"
-        />
+        <BaseModal :show="show">
+            <template #modal>
+                <div class="modal-content p-4 rounded-5 text-center">
+                    <div class="mb-3 mt-2 icon-box text-danger opacity-75">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <h2 class="fw-bold mb-2 text-dark">Confirm Logout</h2>
+                    <p class="text-muted mb-4 fs-6">
+                        Are you sure you want to log out of the system?
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 mb-2">
+                        <BaseButton type="button" background="btn-custom-cancel btn-lg-custom" text="text-black"
+                            @click="closeModal">
+                            Cancel
+                        </BaseButton>
+                        <BaseButton type="submit" :loading="loading" @click="handleLogout"
+                            background=" btn-custom-delete btn-lg-custom" icon="bi bi-trash3-fill">
+                            {{ loading ? 'Logging out...' : ' Logout' }}
+                        </BaseButton>
+                    </div>
+                </div>
+            </template>
+        </BaseModal>
     </div>
 </template>
 
 <style scoped>
-/* Paste sidebar-specific CSS here */
 #sidebar {
     width: var(--sidebar-width);
     height: 100vh;
@@ -128,5 +147,40 @@ const handleLogout = async () => {
 .logout-btn {
     border-radius: 0.75rem;
     font-weight: 700;
+}
+
+.modal-content {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.icon-box {
+    font-size: 80px;
+    line-height: 1;
+}
+
+.btn-custom-cancel {
+    background-color: #e2e6ea;
+    color: #212529;
+    border: none;
+    font-weight: 600;
+}
+
+.btn-custom-cancel:hover {
+    background-color: #dbe0e5;
+    color: #000;
+}
+
+.btn-custom-delete {
+    background-color: #dc3545;
+    border: none;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3);
+}
+
+.btn-lg-custom {
+    padding: 10px 24px;
+    font-size: 1rem;
+    border-radius: 12px;
 }
 </style>

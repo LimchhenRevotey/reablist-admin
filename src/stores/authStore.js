@@ -1,6 +1,7 @@
 import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/api/api';
+import router from '@/router';
 
 let dataAdmin = reactive({
     user: null,
@@ -46,6 +47,7 @@ export const useAuthStore = defineStore('authStore', () => {
             localStorage.removeItem('token');
             dataAdmin.user = null;
             dataAdmin.token = null; 
+            router.push('/login');
         }
 
     }

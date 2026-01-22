@@ -4,10 +4,12 @@ import { useAuthStore } from '@/stores/authStore';
 import z, { string } from 'zod';
 import { ref } from 'vue';
 import router from '@/router';
+import BaseButton from '@/components/ui/BaseButton.vue';
 let authStore = useAuthStore();
 let email = ref('');
 let password = ref('');
 let error = ref('');
+let loading = ref(false);
 
 const loginSham = z.object({
   email: z
@@ -36,10 +38,13 @@ const handleLogin = async () => {
     return;
   }
   try {
+    loading.value = true;
     await authStore.login(email.value, password.value);
     router.push('/dashboard')
   } catch (err) {
     console.log("Login failed", authStore.message_error);
+  } finally {
+    loading.value = false;
   }
 }
 
@@ -79,10 +84,7 @@ const handleLogin = async () => {
               </div>
               <a href="#" class="forgot-link">Forget password?</a>
             </div>
-            <button class="btn w-100 py-2 fw-bold text-white mb-2 shadow-sm"
-              style="background-color: #5a94a0; border-radius: 6px; font-size: 18px;">
-              Sign in
-            </button>
+            <BaseButton type="submit" :loading="loading"> {{ loading ? 'Loading...' : 'Sign in' }}</BaseButton>
             <div class="position-relative text-center mb-2">
               <span class="text-secondary small">or</span>
             </div>
