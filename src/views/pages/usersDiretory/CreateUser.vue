@@ -22,7 +22,7 @@ const goBack = () => {
 <template>
     <section class="container-fluid">
         <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-light text-dark py-2 rounded-circle text-decoration-none border-0" @click="$router.go(-1)">
+                <button class="btn btn-light text-dark py-2 rounded-circle text-decoration-none border-0" @click="goBack">
                     <i class="bi bi-chevron-left" style="-webkit-text-stroke: 1px;"></i>
                 </button>
                 <h3 class="fw-bold mb-0">Create New User</h3>
