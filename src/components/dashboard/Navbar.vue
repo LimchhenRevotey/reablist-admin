@@ -28,7 +28,7 @@
                     width="40" alt="Admin">
 
             </div>
-            <button type="button" class="btn btn-outline-success position-relative rounded-circle">
+            <button type="button" class="btn  position-relative rounded-circle notification">
                 <Bell />
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     99+
@@ -52,6 +52,15 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+.notification{
+    color: var(--brand-primary);
+    background-color: transparent;
+    border: 2px solid var(--brand-primary);
+}
+.notification:hover{
+    background-color: var(--brand-primary);
+    color: #fff;
 }
 
 .root-badge {
