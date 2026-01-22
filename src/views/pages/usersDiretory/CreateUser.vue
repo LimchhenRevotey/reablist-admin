@@ -12,18 +12,19 @@ const formData = reactive({
     role: '',
     password: ''
 });
-// onMounted(() => {
-//     handleCreateUser();
-// });
+const loading = ref(false);
+onMounted(() => {
+    handleCreateUser();
+});
 
-// const handleCreateUser = async () => {
-//     try {
-//         let res = await api.post('', formData.value);
-//         console.log(res);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
+const handleCreateUser = async () => {
+    try {
+        let res = await api.post('', formData);
+        console.log(res);
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 const goBack = () => {
     router.go(-1);
@@ -70,14 +71,8 @@ const goBack = () => {
                             </div>
 
                             <div class="col-12 pt-4 d-flex justify-content-end gap-3 border-top mt-4">
-                                <button type="button" class="btn btn-danger px-4 py-2 rounded-2 fw-medium"
-                                    style="background-color: #ef4444; border: none;">
-                                    Cancel
-                                </button>
-                                <button type="submit" class="btn btn-teal text-white px-4 py-2 rounded-2 fw-medium">
-                                    Execute_User Create
-                                </button>
-                                <BaseButton type="Sigup"></BaseButton>
+                                <BaseButton type="button" background="btn-danger" @click="goBack"> Cancel</BaseButton>
+                                <BaseButton type="submit" :loading="loading">{{ loading ? 'Creating...' : 'Create User' }}</BaseButton>
                             </div>
                         </div>
                     </form>
