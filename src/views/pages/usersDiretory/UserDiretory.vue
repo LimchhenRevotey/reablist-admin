@@ -170,14 +170,19 @@ async function toggleStatus(user) {
 .cursor-pointer:hover {
   opacity: 0.8;
 }
+.btn-action-modern.btn-view{
+  color: #0284c7;
+}
+.btn-action-modern.btn-edit{
+  color: #9333ea;
+}
 
 .btn-action-modern {
   width: 34px;
   height: 34px;
-  border-radius: 8px;
+  border-radius: 50%;
   border: 1px solid transparent;
   background-color: transparent;
-  color: #64748b;
   display: flex;
   align-items: center;
   justify-content: center;

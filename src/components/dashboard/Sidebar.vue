@@ -30,8 +30,10 @@ const handleLogout = async () => {
     <div>
         <aside id="sidebar">
             <div class="sidebar-brand">
-                <shield-check class="me-2" />
-                REABLIST<span class="text-black">ADMIN</span>
+                <h5> 
+                    <shield-check class="me-1" :size="42"/>
+                    REABLIST<span class="text-black">ADMIN</span>
+                </h5>
             </div>
 
             <div class="nav-label">Management</div>

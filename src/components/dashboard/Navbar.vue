@@ -28,8 +28,8 @@
                     width="40" alt="Admin">
 
             </div>
-            <button type="button" class="btn  position-relative rounded-circle notification">
-                <Bell />
+            <button type="button" class="btn  position-relative notification">
+                <i class="bi bi-bell-fill"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     99+
                     <span class="visually-hidden">unread messages</span>
@@ -57,6 +57,12 @@
     color: var(--brand-primary);
     background-color: transparent;
     border: 2px solid var(--brand-primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .notification:hover{
     background-color: var(--brand-primary);
