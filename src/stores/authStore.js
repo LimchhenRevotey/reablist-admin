@@ -37,5 +37,17 @@ export const useAuthStore = defineStore('authStore', () => {
 
         }
     }
-    return { dataAdmin, login, };
+    const logout = async () =>{
+        try{
+            let res = await api.delete('/auth/logout')
+        } catch (error){
+            console.log(res.error);
+        } finally {
+            localStorage.removeItem('token');
+            dataAdmin.user = null;
+            dataAdmin.token = null; 
+        }
+
+    }
+    return { dataAdmin, login, logout };
 });
