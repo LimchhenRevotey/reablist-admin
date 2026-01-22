@@ -1,3 +1,15 @@
+<script setup>
+  defineProps({
+    columns: {
+      type: Array,
+      required: true,
+    },
+    rows: {
+      type: Array,
+      required: true,
+    },
+  });
+</script>
 <template>
   <table class="table mb-0">
     <thead>
@@ -26,19 +38,6 @@
     </tbody>
   </table>
 </template>
-
-<script setup>
-defineProps({
-  columns: {
-    type: Array,
-    required: true,
-  },
-  rows: {
-    type: Array,
-    required: true,
-  },
-});
-</script>
 
 <style scoped>
 .table thead th {
