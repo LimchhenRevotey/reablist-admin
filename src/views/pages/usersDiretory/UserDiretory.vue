@@ -5,9 +5,7 @@ import api from "@/api/api";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
 const users = ref([]);
-
 
 /* Columns definition */
 const columns = [
@@ -30,12 +28,11 @@ async function getUsers() {
     const res = await api.get("/users");
     users.value = res.data.data.items;
     console.log(users.value);
-    
+
   } catch (error) {
     console.error(error);
   }
 }
-
 
 /* Actions */
 const viewUser = (user) => {
@@ -46,19 +43,19 @@ const updateUser = (user) => {
   router.push({ name: "UpdateUser", params: { id: user.id } });
 };
 
-
-
 function toggleStatus(user) {
   user.status = !user.status;
 }
+const createUser = () => {
+  router.push({ name: "CreateUser" });
+};
 </script>
 
 <template>
   <section id="section-users" class="content-section">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h4 class="fw-bold mb-0">Users Directory</h4>
-
-      <button class="btn btn-brand btn-sm d-flex align-items-center gap-2" onclick="navigateToSection('create-user')">
+      <button class="btn btn-brand btn-sm d-flex align-items-center gap-2" @click="createUser">
         <user-plus size="20" />
         Create New User
       </button>
@@ -66,7 +63,6 @@ function toggleStatus(user) {
 
     <div class="card overflow-hidden">
       <BaseTable :columns="columns" :rows="users">
-
         <!-- User details -->
         <template #cell-user="{ row }">
           <div class="fw-bold">{{ row.fullname }}</div>
@@ -92,18 +88,15 @@ function toggleStatus(user) {
         </template>
 
         <!-- Actions -->
-        <template #actions ="{ row }">
-
-          <button class="btn btn-sm action-edit ms-1"  title="View" @click="viewUser(row)">
-            <eye />
-          </button>
-          
-          <button class="btn btn-sm action-view" title="Edit" @click="updateUser(row)" >
-            <square-pen />
-          </button>
-
-          
-
+        <template #actions="{ row }">
+          <div class="d-flex align-items-center justify-content-center">
+            <button class="btn-action-modern btn-view action-view" title="View Profile" @click="viewUser(row)">
+              <eye />
+            </button>
+            <button class="btn-action-modern btn-edit action-edit" title="Edit User" @click="updateUser(row)">
+              <square-pen />
+            </button>
+          </div>
         </template>
 
       </BaseTable>
@@ -135,15 +128,46 @@ function toggleStatus(user) {
   font-size: 0.75rem;
 }
 
-.action-view {
-  color: #0d6dfd96;
+.btn-action-modern.action-edit {
+  color: #9333ea;
 }
 
-.action-edit {
-  color: #1987549c;
+.btn-action-modern.action-view {
+  color: #0284c7;
 }
 
-.action-delete {
-  color: #dc3546c3;
+.btn-action-modern {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+}
+
+
+.btn-action-modern.btn-view:hover {
+  background-color: #e0f2fe;
+  border-color: #bae6fd;
+  color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action-modern.btn-edit:hover {
+  background-color: #f3e8ff;
+  border-color: #e9d5ff;
+  color: #9333ea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action-modern:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 </style>

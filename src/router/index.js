@@ -5,6 +5,7 @@ import AuditTrail from "@/views/pages/audit/AuditTrail.vue";
 import Dashboard from "@/views/pages/dashboard/dashboard.vue";
 import Performance from "@/views/pages/performance/Performance.vue";
 import SecurityAlert from "@/views/pages/security/SecurityAlert.vue";
+import CreateUser from "@/views/pages/usersDiretory/CreateUser.vue";
 import UserDiretory from "@/views/pages/usersDiretory/UserDiretory.vue";
 import ViewUser from "@/views/pages/usersDiretory/ViewUser.vue";
 import { createRouter, createWebHistory } from "vue-router";
@@ -45,6 +46,12 @@ const router = createRouter({
               props:true,
               meta: { title: "View User" },
             },
+            {
+              path: "/create-user",
+              name: "CreateUser",
+              component: CreateUser,
+              meta: { title: "Create User" }
+            }
           ],
         },
         {
