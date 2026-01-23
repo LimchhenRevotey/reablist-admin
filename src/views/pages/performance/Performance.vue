@@ -1,17 +1,17 @@
 <template>
   <section id="section-performance" class="content-section">
-    <h4 class="fw-bold mb-4">Task Activity Performance</h4>
+    <h3 class="fw-bold mb-4">ប្រសិទ្ធភាពនៃសកម្មភាពការងារ</h3>
     <div class="row g-4">
       <div class="col-md-12">
         <div class="card p-4">
-          <h6 class="fw-bold mb-4">Top User Contributors (Today)</h6>
+          <h6 class="fw-bold mb-4">អ្នករួមចំណែកល្អបំផុត (ថ្ងៃនេះ)</h6>
           <table class="table">
             <thead>
               <tr>
-                <th>User</th>
-                <th class="text-center">Tasks Created</th>
-                <th class="text-center">Tasks Completed</th>
-                <th class="text-end">Efficiency</th>
+                <th>អ្នកប្រើប្រាស់</th>
+                <th class="text-center">ភារកិច្ចដែលបានបង្កើត</th>
+                <th class="text-center">ភារកិច្ចដែលបានបញ្ចប់</th>
+                <th class="text-end">ប្រសិទ្ធភាព</th>
               </tr>
             </thead>
             <tbody>

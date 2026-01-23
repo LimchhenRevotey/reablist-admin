@@ -26,7 +26,7 @@ onMounted(async() => {
             <div class="input-group d-none d-md-flex" id="global-search-container" style="width: 380px;">
                 <span class="input-group-text bg-light border-0"><i class="bi bi-search" size="18"></i></span>
                 <input type="text" class="form-control bg-light border-0" id="global-search"
-                    placeholder="Search across platform...">
+                    placeholder="ស្វែងរកក្នុងប្រព័ន្ធ...">
             </div>
         </div>
 

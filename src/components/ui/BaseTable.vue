@@ -17,7 +17,7 @@
         <th v-for="col in columns" :key="col.key" :class="col.class">
           {{ col.label }}
         </th>
-        <th v-if="$slots.actions">Actions</th>
+        <th v-if="$slots.actions">សកម្មភាព</th>
       </tr>
     </thead>
 

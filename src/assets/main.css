@@ -41,3 +41,6 @@ body {
 .fade-leave-to {
     opacity: 0;
 }
+h3{
+  color:var(--brand-primary) !important;
+}

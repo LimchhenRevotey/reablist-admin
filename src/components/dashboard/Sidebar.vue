@@ -36,36 +36,36 @@ const handleLogout = async () => {
                 </h5>
             </div>
 
-            <div class="nav-label">Management</div>
+            <div class="nav-label">ការគ្រប់គ្រង</div>
             <nav class="nav flex-column">
                 <router-link :to="{ name: 'Dashboard' }" class="nav-link">
-                    <layout-grid /> Dashboard
+                    <layout-grid /> ផ្ទាំងព័ត៌មាន
                 </router-link>
                 <router-link :to="{ name: 'UserDirectory' }" class="nav-link">
-                    <users /> Users Directory
+                    <users /> បញ្ជីឈ្មោះអ្នកប្រើប្រាស់
                 </router-link>
                 <router-link :to="{ name: 'AccessControl' }" class="nav-link">
-                    <lock-keyhole /> Access Control
+                    <lock-keyhole /> ការគ្រប់គ្រងការចូលប្រើ
                 </router-link>
             </nav>
 
-            <div class="nav-label">Monitoring</div>
+            <div class="nav-label">ការតាមដាន</div>
             <nav class="nav flex-column">
                 <router-link :to="{ name: 'Performance' }" class="nav-link">
-                    <activity /> Performance
+                    <activity /> ប្រសិទ្ធភាពការងារ
                 </router-link>
                 <router-link :to="{ name: 'SecurityAlerts' }" class="nav-link">
-                    <alert-triangle /> Security Alerts
+                    <alert-triangle /> ការជូនដំណឹងអំពីសុវត្ថិភាព
                 </router-link>
                 <router-link :to="{ name: 'AuditTrails' }" class="nav-link">
-                    <file-text /> Audit Trails
+                    <file-text /> ប្រវត្តិនៃការត្រួតពិនិត្យ
                 </router-link>
             </nav>
 
             <div class="mt-auto p-4">
                 <button @click="openModal"
                     class="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-2 logout-btn">
-                    <LogOut :size="18" /> Logout
+                    <LogOut :size="18" /> ចាកចេញ
                 </button>
             </div>
         </aside>

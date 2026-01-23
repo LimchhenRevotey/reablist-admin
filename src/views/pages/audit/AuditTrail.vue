@@ -1,6 +1,6 @@
 <template>
   <section id="section-logs" class="content-section">
-    <h4 class="fw-bold mb-4">Administrative Audit Trails</h4>
+    <h3 class="fw-bold mb-4">Administrative Audit Trails</h3>
     <div class="card overflow-hidden">
       <table class="table mb-0 small">
         <thead>

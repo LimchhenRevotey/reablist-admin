@@ -12,12 +12,12 @@ const isLoading = ref(false);
 const columns = [
   {
     key: "user",
-    label: "User Details",
+    label: "ព័ត៌មានលម្អិតអ្នកប្រើប្រាស់",
     class: "ps-4 text-start",
     bodyClass: "ps-4 py-3 text-start",
   },
-  { key: "role", label: "Role" },
-  { key: "status", label: "Account Status" },
+  { key: "role", label: "តួនាទី" },
+  { key: "status", label: "ស្ថានភាពគណនី" },
 ];
 
 onMounted(() => {
@@ -71,17 +71,17 @@ async function toggleStatus(user) {
   <section class="container-fluid p-4">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h3 class="fw-bold mb-0">Users Directory</h3>
+      <h3 class="fw-bold mb-0">បញ្ជីឈ្មោះអ្នកប្រើប្រាស់</h3>
       <div class="d-flex gap-2">
         <button class="btn btn-brand btn-sm d-flex align-items-center gap-2" @click="createUser">
           <UserPlus :size="20" />
-          Create New User
+          បង្កើតអ្នកប្រើប្រាស់ថ្មី
         </button>
       </div>
     </div>
 
     <div class="card overflow-hidden border-0 shadow-sm rounded-4">
-      <BaseTable :columns="columns" :rows="users">
+      <BaseTable :columns="columns" :rows="users" >
 
         <template #cell-user="{ row }">
           <div class="fw-bold text-dark">{{ row.fullname }}</div>
