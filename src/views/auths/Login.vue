@@ -5,11 +5,13 @@ import z, { string } from 'zod';
 import { ref } from 'vue';
 import router from '@/router';
 import BaseButton from '@/components/ui/BaseButton.vue';
+import BaseModal from '@/components/ui/BaseModal.vue';
 let authStore = useAuthStore();
 let email = ref('');
 let password = ref('');
 let error = ref('');
 let loading = ref(false);
+let showModal = ref(false);
 
 const loginSham = z.object({
   email: z
@@ -42,10 +44,14 @@ const handleLogin = async () => {
     await authStore.login(email.value, password.value);
     router.push('/dashboard')
   } catch (err) {
-    console.log("Login failed", authStore.message_error);
+    showModal.value = true;
+    authStore.message_error = "Please check your credentials and try again.";
   } finally {
     loading.value = false;
   }
+}
+const closeModal = () => {
+  showModal.value = false;
 }
 
 </script>
@@ -85,10 +91,10 @@ const handleLogin = async () => {
               <a href="#" class="forgot-link">Forget password?</a>
             </div>
             <BaseButton type="submit" :loading="loading"> {{ loading ? 'Loading...' : 'Sign in' }}</BaseButton>
-            <div class="position-relative text-center mb-2">
+            <!-- <div class="position-relative text-center mb-2">
               <span class="text-secondary small">or</span>
-            </div>
-            <div class="d-flex justify-content-center gap-3 mb-4">
+            </div> -->
+            <!-- <div class="d-flex justify-content-center gap-3 mb-4">
               <button class="btn border rounded-circle social-btn d-flex align-items-center justify-content-center">
                 <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                   <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
@@ -117,15 +123,34 @@ const handleLogin = async () => {
                     fill="#000000" />
                 </svg>
               </button>
-            </div>
-            <div class="text-center small text-secondary">
+            </div> -->
+            <!-- <div class="text-center small text-secondary">
               Don't you have an account? <a href="#" class="text-decoration-none fw-bold" style="color: #427c87;">
                 Sign up</a>
-            </div>
+            </div> -->
           </form>
         </div>
       </div>
     </div>
+    <BaseModal :show="showModal">
+    <template #modal>
+                <div class="modal-content p-4 rounded-5 text-center">
+                    <div class="mb-3 mt-2 icon-box text-danger opacity-75">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <h2 class="fw-bold mb-2 text-dark">Login failed</h2>
+                    <p class="text-muted mb-4 fs-6">
+                        {{ authStore.message_error }}
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 mb-2">
+                        <BaseButton type="button" background="btn-custom-cancel btn-lg-custom" text="text-black"
+                            @click="closeModal">
+                            Cancel
+                        </BaseButton>
+                    </div>
+                </div>
+            </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -152,6 +177,10 @@ const handleLogin = async () => {
   background-color: #427c87;
   border-radius: 50%;
   z-index: 1;
+}
+.icon-box {
+    font-size: 80px;
+    line-height: 1;
 }
 
 .shape-bottom-left {
