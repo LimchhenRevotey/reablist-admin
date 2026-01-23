@@ -4,25 +4,70 @@ import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseInput from '@/components/ui/BaseInput.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import z from 'zod';
+import { useRoleStore } from '@/stores/roleStore';
 
+let roleStore = useRoleStore();
+let error = ref('');
 const router = useRouter();
 const formData = reactive({
     fullName: '',
     email: '',
-    role: '',
+    role: null,
     password: ''
 });
 const loading = ref(false);
 onMounted(() => {
-    handleCreateUser();
+    roleStore.getRoles();
 });
-
+const shemaUser = z.object({
+    fullName: z
+        .string()
+        .min(1, 'Full Name is required'),
+    email: z
+        .string()
+        .min(1, 'Email is required')
+        .email('Invalid email address'),
+    role: z
+        .number('Role is required'),
+    password: z
+        .string()
+        .min(8, 'Password must be at least 8 characters long')
+});
 const handleCreateUser = async () => {
+    let result = shemaUser.safeParse({
+        fullName: formData.fullName,
+        email: formData.email,
+        role: formData.role,
+        password: formData.password
+    });
+    console.log(result);
+    error.value = {};
+    if (!result.success) {
+        let formated = result.error.format();
+        error.value.fullName = formated.fullName?._errors[0] || '';
+        error.value.email = formated.email?._errors[0] || '';
+        error.value.role = formated.role?._errors[0] || '';
+        error.value.password = formated.password?._errors[0] || '';
+        return;
+    };
     try {
-        let res = await api.post('', formData);
-        console.log(res);
+        loading.value = true;
+        let res = await api.post('/users', {
+            fullname: formData.fullName,
+            email: formData.email,
+            roleId: formData.role,
+            password: formData.password
+        });
+        router.push({ name: 'UserDirectory' });
+        formData.fullName = '';
+        formData.email = '';
+        formData.role = null;
+        formData.password = '';
     } catch (error) {
-        console.error(error);
+
+    } finally {
+        loading.value = false;
     }
 };
 
@@ -48,31 +93,33 @@ const goBack = () => {
 
                             <div class="col-md-6">
                                 <BaseInput label="Full Name" type="text" v-model="formData.fullName"
-                                    placeholder="Enter Your Full Name" required></BaseInput>
+                                    placeholder="Enter Your Full Name" :message_error="error.fullName"></BaseInput>
                             </div>
 
                             <div class="col-md-6">
                                 <BaseInput label="Email Address" type="email" v-model="formData.email"
-                                    placeholder="Enter Your Email" required></BaseInput>
+                                    placeholder="Enter Your Email" :message_error="error.email"></BaseInput>
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label text-teal fw-bold mb-2">Assigns Role</label>
-                                <select class="form-select form-control-custom" required>
+                                <select class="form-select form-control-custom" v-model="formData.role">
                                     <option value="" disabled selected>Select a role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="user">User</option>
+                                    <option v-for="role in roleStore.roles" :key="role.id" :value="role.id">{{ role.name
+                                        }}</option>
                                 </select>
+                                <small class="text-danger">{{ error.role }}</small>
                             </div>
 
                             <div class="col-12">
                                 <BaseInput label="Password" type="password" v-model="formData.password"
-                                    placeholder="Enter Your Password" required></BaseInput>
+                                    placeholder="Enter Your Password" :message_error="error.password"></BaseInput>
                             </div>
 
                             <div class="col-12 pt-4 d-flex justify-content-end gap-3 border-top mt-4">
                                 <BaseButton type="button" background="btn-danger" @click="goBack"> Cancel</BaseButton>
-                                <BaseButton type="submit" :loading="loading">{{ loading ? 'Creating...' : 'Create User' }}</BaseButton>
+                                <BaseButton type="submit" :loading="loading">{{ loading ? 'Creating...' : 'Create User'
+                                    }}</BaseButton>
                             </div>
                         </div>
                     </form>
@@ -84,7 +131,7 @@ const goBack = () => {
 
 <style scoped>
 .text-teal {
-  color: #427c87 !important;
+    color: #427c87 !important;
 }
 
 .form-control-custom {

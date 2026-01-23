@@ -30,7 +30,8 @@ const viewUser = async () => {
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-light text-dark py-2 rounded-circle text-decoration-none border-0" @click="$router.go(-1)">
+                <button class="btn btn-light text-dark py-2 rounded-circle text-decoration-none border-0"
+                    @click="$router.go(-1)">
                     <i class="bi bi-chevron-left" style="-webkit-text-stroke: 1px;"></i>
                 </button>
                 <h3 class="fw-bold mb-0">User profile insights</h3>
@@ -62,14 +63,19 @@ const viewUser = async () => {
 
                         <hr class="my-4 text-muted opacity-25">
 
-                        <div class="text-start px-2">
+                        <div class="text-start px-0">
                             <div class="d-flex justify-content-between mb-3">
                                 <span class="text-muted">Account Status:</span>
-                                <span class="text-success fw-bold">{{ user?.status ? "ACTIVATED" : "DEACTIVATED"}}</span>
+                                <span :class="(user.status === 'ACTIVATED' || user.status === true || user.status === 1)
+                                    ? 'text-success fw-bold'
+                                    : 'text-danger fw-bold'">
+                                    {{ (user.status === 'ACTIVATED' || user.status === true || user.status === 1)
+                                        ? "ACTIVATED" : "DEACTIVATED" }}
+                                </span>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <span class="fw-medium text-secondary">Member Since :</span>
-                                <span class="fw-bold text-dark">{{ formatDate(user?.registeredAt)}}</span>
+                                <span class="fw-bold text-dark">{{ formatDate(user?.registeredAt) }}</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span class="fw-medium text-secondary">Last Login :</span>
@@ -141,15 +147,18 @@ const viewUser = async () => {
     border-color: #325e6d;
     font-weight: 500;
 }
+
 .btn-custom-teal:hover {
     background-color: #264b56;
 }
+
 .badge-soft-blue {
     background-color: #dbeafe;
     color: #2563eb;
     font-size: 0.9rem;
     font-weight: 600;
 }
+
 .stat-box {
     height: 100%;
     display: flex;
@@ -161,12 +170,15 @@ const viewUser = async () => {
 .stat-gray {
     background-color: #e3e8ef;
 }
+
 .stat-blue {
     background-color: #dbeafe;
 }
+
 .stat-green {
     background-color: #e8f5e9;
 }
+
 .tracking-wide {
     letter-spacing: 0.5px;
     font-size: 0.75rem;

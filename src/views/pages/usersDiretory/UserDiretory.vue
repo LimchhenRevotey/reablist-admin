@@ -28,7 +28,7 @@ onMounted(() => {
 async function getUsers() {
   isLoading.value = true;
   try {
-    const res = await api.get("/users");
+    const res = await api.get('/users?_page=1&_per_page=100&search&sortBy=id&sortDir=ASC');
     users.value = res.data.data?.items || res.data.data || [];
     console.log("Fetched Users:", users.value);
   } catch (error) {
@@ -68,10 +68,10 @@ async function toggleStatus(user) {
 </script>
 
 <template>
-  <section id="section-users" class="content-section p-4">
+  <section class="container-fluid p-4">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h4 class="fw-bold mb-0">Users Directory</h4>
+      <h3 class="fw-bold mb-0">Users Directory</h3>
       <div class="d-flex gap-2">
         <button class="btn btn-brand btn-sm d-flex align-items-center gap-2" @click="createUser">
           <UserPlus :size="20" />
@@ -115,9 +115,6 @@ async function toggleStatus(user) {
             <button class="btn-action-modern btn-view" title="View Profile" @click="viewUser(row)">
               <Eye :size="18" />
             </button>
-            <!-- <button class="btn-action-modern btn-edit" title="Edit User" @click="updateUser(row)">
-              <SquarePen :size="18" />
-            </button> -->
           </div>
         </template>
 
@@ -170,9 +167,6 @@ async function toggleStatus(user) {
 .btn-action-modern.btn-view{
   color: #0284c7;
 }
-.btn-action-modern.btn-edit{
-  color: #9333ea;
-}
 
 .btn-action-modern {
   width: 34px;
@@ -189,11 +183,6 @@ async function toggleStatus(user) {
 .btn-action-modern.btn-view:hover {
   background-color: #e0f2fe;
   color: #0284c7;
-}
-
-.btn-action-modern.btn-edit:hover {
-  background-color: #f3e8ff;
-  color: #9333ea;
 }
 
 /* Animation for Refresh */

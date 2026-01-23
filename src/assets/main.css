@@ -16,7 +16,7 @@
   box-sizing: border-box;
   font-family: 'Poppins', 'Kantumruy Pro', sans-serif;
 }
-/* Paste the contents of your <style> tag here, excluding specific component styles */
+
 :root {
     --brand-primary: #13707F;
     --brand-light: #F0F9FA;
@@ -32,8 +32,6 @@ body {
     background-color: var(--bg-body);
     color: #1E293B;
 }
-
-/* Add utility classes for transitions */
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.2s ease;
