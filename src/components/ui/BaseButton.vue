@@ -53,5 +53,28 @@
     font-size: 1rem;
     border-radius: 12px;
 }
+.btn-custom-light {
+    background-color: #e0ebf0;
+    border: none;
+    color: #4b6b7a;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    
+}
+
+.btn-custom-light:hover {
+    background-color: #d1dee4;
+    color: #374f5b;
+}
+.btn-custom-teal {
+    background-color: #3b6e7d;
+    border: none;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}
+
+.btn-custom-teal:hover {
+    background-color: #2e5661;
+}
 
 </style>
