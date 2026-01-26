@@ -36,10 +36,6 @@ const viewUser = async () => {
                 </button>
                 <h3 class="fw-bold mb-0">ព័ត៌មានលម្អិតអ្នកប្រើប្រាស់</h3>
             </div>
-
-            <button class="btn btn-custom-teal text-white px-4 py-2 rounded-2 d-flex align-items-center gap-2">
-                <i class="bi bi-pencil-square"></i> កែប្រែគណនី
-            </button>
         </div>
 
         <div class="row g-4">
@@ -66,11 +62,10 @@ const viewUser = async () => {
                         <div class="text-start px-0">
                             <div class="d-flex justify-content-between mb-3">
                                 <span class="text-muted">ស្ថានភាពគណនី:</span>
-                                <span :class="(user.status === 'ACTIVATED' || user.status === true || user.status === 1)
+                                <span :class="(user.status === 'ACTIVATED')
                                     ? 'text-success fw-bold'
                                     : 'text-danger fw-bold'">
-                                    {{ (user.status === 'ACTIVATED' || user.status === true || user.status === 1)
-                                        ? "ACTIVATED" : "DEACTIVATED" }}
+                                    {{ (user.status === 'ACTIVATED') ? "ACTIVATED" : "DEACTIVATED" }}
                                 </span>
                             </div>
                             <div class="d-flex justify-content-between mb-3">

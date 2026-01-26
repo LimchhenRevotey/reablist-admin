@@ -49,7 +49,7 @@ const createUser = () => {
 
 // Toggle User Status
 async function toggleStatus(user) {
-  const isActive = user.status === 'ACTIVATED' || user.status === true || user.status === 1;
+  const isActive = user.status === 'ACTIVATED';
   const newStatusString = isActive ? "DEACTIVATED" : "ACTIVATED";
   const oldStatus = user.status;
   user.status = newStatusString;
@@ -97,16 +97,16 @@ async function toggleStatus(user) {
         </template>
 
         <template #cell-status="{ row }">
-          <span class="badge-status cursor-pointer" @click="toggleStatus(row)" :class="(row.status === 'ACTIVATED' || row.status === true || row.status === 1)
+          <span class="badge-status cursor-pointer" @click="toggleStatus(row)" :class="(row.status === 'ACTIVATED' )
             ? 'bg-success-subtle text-success'
             : 'bg-danger-subtle text-danger'">
 
-            <i class="bi me-1" :class="(row.status === 'ACTIVATED' || row.status === true || row.status === 1)
+            <i class="bi me-1" :class="(row.status === 'ACTIVATED')
               ? 'bi-check-circle-fill'
               : 'bi-x-circle-fill'">
             </i>
 
-            {{ (row.status === 'ACTIVATED' || row.status === true || row.status === 1) ? "ACTIVATED" : "DEACTIVATED" }}
+            {{ (row.status === 'ACTIVATED') ? "ACTIVATED" : "DEACTIVATED" }}
           </span>
         </template>
 
