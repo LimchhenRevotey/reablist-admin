@@ -30,11 +30,11 @@ onMounted(() => {
   getUsers();
 });
 
-// Fetch Users
-async function getUsers() {
+// Get All Users
+const getUsers = async () => {
   isLoading.value = true;
   try {
-    const res = await api.get('/users?_page=1&_per_page=100&search&sortBy=id&sortDir=ASC');
+    const res = await api.get('/users?_page=1&_per_page=100&search&sortBy=id&sortDir=DESC');
     users.value = res.data.data?.items || res.data.data || [];
     console.log("Fetched Users:", users.value);
   } catch (error) {
@@ -44,7 +44,7 @@ async function getUsers() {
   }
 }
 
-/* Actions */
+// Actions 
 const viewUser = (user) => {
   router.push({ name: "View-User", params: { id: user.id } });
 };
@@ -53,18 +53,18 @@ const createUser = () => {
   router.push({ name: "CreateUser" });
 };
 
-// Toggle User Status
-const toggleStatus= async (user) => {
+// Change User Status
+const toggleStatus = async (user) => {
   const isActive = user.status === 'ACTIVATED';
-  const newStatusString = isActive ? "DEACTIVATED" : "ACTIVATED";
+  const newStatus = isActive ? "DEACTIVATED" : "ACTIVATED";
   const oldStatus = user.status;
-  user.status = newStatusString;
+  user.status = newStatus;
 
   try {
     await api.put(`/users/${user.id}`, {
-      status: newStatusString
+      status: newStatus
     });
-    console.log(`User ${user.id} status updated to ${newStatusString}`);
+    console.log(`User ${user.id} status updated to ${newStatus}`);
   } catch (error) {
     console.error("Failed to update status:", error);
     user.status = oldStatus;
@@ -85,60 +85,67 @@ const toggleStatus= async (user) => {
         </button>
       </div>
     </div>
+    <div class="row g-4">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+          <h6 class="fw-bold mb-4">
+            បញ្ជីឈ្មោះអ្នកប្រើប្រាស់ទាំងអស់
+          </h6>
+          <div class="table-responsive rounded-4 ">
+            <div class="card overflow-hidden border-0 shadow-sm rounded-4">
+              <BaseTable :columns="columns" :rows="users" :loading="isLoading" :perPage="10" :currentPage="1">
 
-    <div class="card overflow-hidden border-0 shadow-sm rounded-4 ">
-      <BaseTable :columns="columns" :rows="users" >
+                <template #cell-user="{ row }">
+                  <div class="fw-bold text-dark">{{ row.fullname }}</div>
+                  <div class="text-muted small">{{ row.email }}</div>
+                </template>
 
-        <template #cell-user="{ row }">
-          <div class="fw-bold text-dark">{{ row.fullname }}</div>
-          <div class="text-muted small">{{ row.email }}</div>
-        </template>
+                <template #cell-role="{ row }">
+                  <span class="badge rounded-pill px-3 py-2" :class="row.role?.name?.toLowerCase().includes('admin')
+                    ? 'bg-primary-subtle text-primary'
+                    : 'bg-info-subtle text-info'">
+                    {{ row.role?.name || 'User' }}
+                  </span>
+                </template>
 
-        <template #cell-role="{ row }">
-          <span class="badge rounded-pill px-3 py-2" :class="row.role?.name?.toLowerCase().includes('admin')
-            ? 'bg-primary-subtle text-primary'
-            : 'bg-info-subtle text-info'">
-            {{ row.role?.name || 'User' }}
-          </span>
-        </template>
+                <template #cell-status="{ row }">
+                  <span class="badge-status cursor-pointer" @click="toggleStatus(row)" :class="(row.status === 'ACTIVATED')
+                    ? 'bg-success-subtle text-success'
+                    : 'bg-danger-subtle text-danger'">
 
-        <template #cell-status="{ row }">
-          <span class="badge-status cursor-pointer" @click="toggleStatus(row)" :class="(row.status === 'ACTIVATED' )
-            ? 'bg-success-subtle text-success'
-            : 'bg-danger-subtle text-danger'">
+                    <i class="bi me-1" :class="(row.status === 'ACTIVATED')
+                      ? 'bi-check-circle-fill'
+                      : 'bi-x-circle-fill'">
+                    </i>
 
-            <i class="bi me-1" :class="(row.status === 'ACTIVATED')
-              ? 'bi-check-circle-fill'
-              : 'bi-x-circle-fill'">
-            </i>
+                    {{ (row.status === 'ACTIVATED') ? "ACTIVATED" : "DEACTIVATED" }}
+                  </span>
+                </template>
 
-            {{ (row.status === 'ACTIVATED') ? "ACTIVATED" : "DEACTIVATED" }}
-          </span>
-        </template>
+                <template #actions="{ row }">
+                  <div class="d-flex align-items-center justify-content-center gap-2">
+                    <button class="btn-action-modern btn-view" title="View Profile" @click="viewUser(row)">
+                      <Eye :size="18" />
+                    </button>
+                  </div>
+                </template>
 
-        <template #actions="{ row }">
-          <div class="d-flex align-items-center justify-content-center gap-2">
-            <button class="btn-action-modern btn-view" title="View Profile" @click="viewUser(row)">
-              <Eye :size="18" />
-            </button>
+              </BaseTable>
+
+              <div v-if="users.length === 0 && !isLoading" class="text-center py-5 text-muted">
+                រកមិនឃើញអ្នកប្រើប្រាស់
+              </div>
+            </div>
+
           </div>
-        </template>
-
-      </BaseTable>
-
-      <div v-if="users.length === 0 && !isLoading" class="text-center py-5 text-muted">
-        រកមិនឃើញអ្នកប្រើប្រាស់
+        </div>
       </div>
     </div>
+
   </section>
 </template>
 
 <style scoped>
-.card {
-  background: #fff;
-  border: 1px solid #eaecf0;
-}
-
 .btn-brand {
   background-color: var(--brand-primary);
   color: white;
@@ -170,7 +177,8 @@ const toggleStatus= async (user) => {
 .cursor-pointer:hover {
   opacity: 0.8;
 }
-.btn-action-modern.btn-view{
+
+.btn-action-modern.btn-view {
   color: #0284c7;
 }
 
