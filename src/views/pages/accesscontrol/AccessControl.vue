@@ -2,9 +2,7 @@
 import { onMounted, computed } from "vue";
 import { useRoleStore } from "@/stores/roleStore";
 import BaseTable from "@/components/ui/BaseTable.vue";
-
-// store
-const roleStore = useRoleStore();
+const roleStore = useRoleStore();;
 
 onMounted(() => {
   roleStore.getRoles();
@@ -12,30 +10,12 @@ onMounted(() => {
 
 // table columns
 const columns = [
-  {
-    key: "name",
-    label: "ឈ្មោះតួនាទី",
-    class: "ps-4 text-start",
-    bodyClass: "ps-4 py-3 text-start fw-bold",
-  },
-  {
-    key: "getAll",
-    label: "ទាញយកទិន្នន័យអ្នកប្រើប្រាស់ទាំងអស់",
-  },
-  {
-    key: "getOne",
-    label: "ទាញយកទិន្នន័យអ្នកប្រើប្រាស់ម្នាក់ៗ",
-  },
-  {
-    key: "create",
-    label: "បង្កើតអ្នកប្រើប្រាស់ថ្មី",
-  },
-  {
-    key: "status",
-    label: "ផ្លាស់ប្តូរស្ថានភាព",
-  },
+  { key: "name", label: "ឈ្មោះតួនាទី", class: "ps-4 text-start", bodyClass: "ps-4 py-3 text-start fw-bold", },
+  { key: "getAll", label: "ទាញយកទិន្នន័យអ្នកប្រើប្រាស់ទាំងអស់", },
+  { key: "getOne", label: "ទាញយកទិន្នន័យអ្នកប្រើប្រាស់ម្នាក់ៗ", },
+  { key: "create", label: "បង្កើតអ្នកប្រើប្រាស់ថ្មី", },
+  { key: "status", label: "ផ្លាស់ប្តូរស្ថានភាព", },
 ];
-
 // rows
 const rows = computed(() => roleStore.roles);
 
@@ -59,7 +39,7 @@ const isAdmin = (role) =>
           </h6>
 
           <div class="table-responsive rounded-4 ">
-            <BaseTable :columns="columns" :rows="rows">
+            <BaseTable :columns="columns" :rows="rows" :loading="roleStore.isLoading" :perPage="5">
 
               <!-- Get all users -->
               <template #cell-getAll>

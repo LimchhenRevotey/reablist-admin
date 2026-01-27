@@ -12,20 +12,14 @@ const columns = [
 const rows = [
   {
     timestamp: "2025-10-24 10:20:01",
-    admin: {
-      name: "Alex Thompson",
-      uid: "UID#4012",
-    },
+    admin: "Alex Thompson",
     action: "USER_STATUS_CHG",
     target: "UID#4012",
     outcome: "SUCCESS",
   },
   {
     timestamp: "2025-10-24 11:45:12",
-    admin: {
-      name: "Alex Thompson",
-      uid: "UID#4055",
-    },
+    admin: "Alex Thompson",
     action: "USER_CREATE",
     target: "UID#4055",
     outcome: "SUCCESS",
