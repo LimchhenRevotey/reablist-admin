@@ -1,7 +1,11 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useProfileStore } from '@/stores/profileStore';
+import { useSideBarStore } from '@/stores/sideBar';
+
+let sideBarStore = useSideBarStore();
 let profileStore = useProfileStore();
+
 
 onMounted(() => {
     profileStore.getProfiles();
@@ -10,11 +14,11 @@ onMounted(() => {
 
 <template>
     <header class="top-navbar">
-        <div class="d-flex align-items-center">
-            <button class="btn btn-light d-lg-none me-3" id="sidebar-toggle">
-                <i class="bi bi-justify"></i>
+        <div class="d-flex align-items-center justify-content-center">
+            <button class="btn btn-light d-lg-none " @click="sideBarStore.toggleSidebar" id="sidebar-toggle"> 
+                 <Menu :class="sideBarStore.isSideBarOpen"></Menu>
             </button>
-            <div class="input-group d-none d-md-flex" id="global-search-container" style="width: 380px;">
+            <div class="input-group d-none  d-md-flex" id="global-search-container" style="width: 380px;">
                 <span class="input-group-text bg-light border-0"><i class="bi bi-search" size="18"></i></span>
                 <input type="text" class="form-control bg-light border-0" id="global-search"
                     placeholder="ស្វែងរកក្នុងប្រព័ន្ធ...">

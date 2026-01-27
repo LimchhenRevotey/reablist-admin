@@ -1,9 +1,12 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore';
 import BaseModal from '../ui/BaseModal.vue';
-import { onMounted, ref } from 'vue';
+import {  ref } from 'vue';
 import BaseButton from '../ui/BaseButton.vue';
-import router from '@/router';
+import { useSideBarStore } from '@/stores/sideBar';
+let sideBarStore = useSideBarStore();
+
+
 let authStore = useAuthStore();
 let show = ref(false);
 let loading = ref(false);
@@ -28,7 +31,9 @@ const handleLogout = async () => {
 
 <template>
     <div>
-        <aside id="sidebar">
+        <div id="overlay" :class="{ show: sideBarStore.isSideBarOpen }" @click="sideBarStore.closeSidebar"></div>
+        
+        <aside id="sidebar" :class="{ open: sideBarStore.isSideBarOpen }">
             <div class="sidebar-brand">
                 <router-link class="brand-modern text-decoration-none p-4 d-flex align-items-center justify-content-center" :to="{ name: 'Dashboard' }">
                     <div class="brand-symbol">✓</div>
@@ -40,13 +45,13 @@ const handleLogout = async () => {
 
             <div class="nav-label">ការគ្រប់គ្រង</div>
             <nav class="nav flex-column">
-                <router-link :to="{ name: 'Dashboard' }" class="nav-link">
+                <router-link :to="{ name: 'Dashboard' }" @click="sideBarStore.closeSidebar" class="nav-link">
                     <layout-grid /> ផ្ទាំងព័ត៌មាន
                 </router-link>
-                <router-link :to="{ name: 'UserDirectory' }" class="nav-link">
+                <router-link :to="{ name: 'UserDirectory' }" @click="closeSidebar" class="nav-link">
                     <users /> បញ្ជីឈ្មោះអ្នកប្រើប្រាស់
                 </router-link>
-                <router-link :to="{ name: 'AccessControl' }" class="nav-link">
+                <router-link :to="{ name: 'AccessControl' }" @click="closeSidebar" class="nav-link">
                     <lock-keyhole /> ការគ្រប់គ្រងការចូលប្រើ
                 </router-link>
             </nav>
@@ -110,6 +115,31 @@ const handleLogout = async () => {
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 2000;
+}
+#sidebar.open {
+  transform: translateX(0);
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 1500;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Overlay visible */
+#overlay.show {
+  display: block;
 }
 .text-teal {
     color: #1491a2;
@@ -211,5 +241,11 @@ const handleLogout = async () => {
 
 .brand-modern:hover .brand-symbol {
     transform: rotate(-8deg) scale(1.05);
+}
+
+@media (min-width: 992px) {
+  #sidebar {
+    transform: translateX(0);
+  }
 }
 </style>

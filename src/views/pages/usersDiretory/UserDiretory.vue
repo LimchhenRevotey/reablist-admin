@@ -16,8 +16,14 @@ const columns = [
     class: "ps-4 text-start",
     bodyClass: "ps-4 py-3 text-start",
   },
-  { key: "role", label: "តួនាទី" },
-  { key: "status", label: "ស្ថានភាពគណនី" },
+  { key: "role", label: "តួនាទី",
+     class: "d-none d-md-table-cell",
+    bodyClass: "d-none d-md-table-cell",
+   },
+  { key: "status", label: "ស្ថានភាពគណនី",
+    class: "d-none d-md-table-cell",
+    bodyClass: "d-none d-md-table-cell",
+   },
 ];
 
 onMounted(() => {
@@ -70,7 +76,7 @@ const toggleStatus= async (user) => {
 <template>
   <section class="container-fluid p-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center  mb-4">
       <h3 class="fw-bold mb-0">បញ្ជីឈ្មោះអ្នកប្រើប្រាស់</h3>
       <div class="d-flex gap-2">
         <button class="btn btn-brand btn-sm d-flex align-items-center gap-2" @click="createUser">
@@ -80,7 +86,7 @@ const toggleStatus= async (user) => {
       </div>
     </div>
 
-    <div class="card overflow-hidden border-0 shadow-sm rounded-4">
+    <div class="card overflow-hidden border-0 shadow-sm rounded-4 ">
       <BaseTable :columns="columns" :rows="users" >
 
         <template #cell-user="{ row }">
@@ -185,6 +191,7 @@ const toggleStatus= async (user) => {
   color: #0284c7;
 }
 
+
 /* Animation for Refresh */
 .spin-anim {
   animation: spin 1s linear infinite;
@@ -193,6 +200,13 @@ const toggleStatus= async (user) => {
 @keyframes spin {
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .btn-action-modern {
+    width: 40px;
+    height: 40px;
   }
 }
 </style>

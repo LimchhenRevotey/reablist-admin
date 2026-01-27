@@ -11,7 +11,7 @@
   });
 </script>
 <template>
-  <table class="table mb-0">
+  <table class="table mb-0 table-responsive">
     <thead>
       <tr class="text-center">
         <th v-for="col in columns" :key="col.key" :class="col.class">
