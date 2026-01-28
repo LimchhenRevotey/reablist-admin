@@ -8,8 +8,8 @@ export const useAuthStore = defineStore('authStore', () => {
 
     let dataAdmin = reactive({
         user: null,
-        token: localStorage.getItem('token'),
-        role: localStorage.getItem('role'),
+        token: sessionStorage.getItem('token'),
+        role: sessionStorage.getItem('role'),
     });
 
     const login = async (email, password) => {
@@ -31,8 +31,8 @@ export const useAuthStore = defineStore('authStore', () => {
             dataAdmin.user = user;
             dataAdmin.token = token;
             dataAdmin.role = roleName;
-            localStorage.setItem('role', roleName)
-            localStorage.setItem('token', token)
+            sessionStorage.setItem('role', roleName)
+            sessionStorage.setItem('token', token)
             return true;
 
         } catch (error) {
@@ -59,8 +59,8 @@ export const useAuthStore = defineStore('authStore', () => {
         } catch (error) {
             console.log(error);
         } finally {
-            localStorage.removeItem('token');
-            localStorage.removeItem('role');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('role');
             dataAdmin.user = null;
             dataAdmin.token = null;
             router.push('/login');

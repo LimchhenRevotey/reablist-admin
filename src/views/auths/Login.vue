@@ -70,18 +70,12 @@ const closeModal = () => {
     <div class="row g-0 w-100 position-relative" style="z-index: 2;">
       <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-center ps-5 text-white">
         <div class="p-5" style="max-width: 650px;">
-          <!-- <h3 class="display-4 fw-bold text-uppercase mb-3">សូមស្វាគមន៍</h3>
-          <h5 class="fw-normal mb-2">ឈ្មោះរបស់អ្នក</h5>
-          <p class=" fw-light opacity-75">
-             ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យដែលមានសុវត្ថិភាព និងងាយស្រួលប្រើប្រាស់។
-             (Sample Khmer text describing the system)
-          </p> -->
           <img :src="loginImage" alt="Login Background" class="img-fluid rounded-4 shadow-sm">
         </div>
       </div>
-
       <div class="col-lg-6 d-flex align-items-center justify-content-center p-4">
-        <div class="w-100" style="max-width: 450px;">
+        
+        <div class=" w-100" style="max-width: 450px;">
           <h1 class="fw-bold text-dark mb-2" style="font-size: 3rem;">ចូលប្រើប្រាស់</h1>
           <p class="text-secondary mb-2">សូមបញ្ចូលព័ត៌មានរបស់អ្នកដើម្បីបន្ត។</p>
 
@@ -92,15 +86,7 @@ const closeModal = () => {
             <BaseInput label="ពាក្យសម្ងាត់" type="password" placeholder="បញ្ចូលពាក្យសម្ងាត់របស់អ្នក"
               :message_error="error.password" v-model="password">
             </BaseInput>
-
-            <div class="d-flex justify-content-between align-items-center mb-4 form-actions">
-              <div class="checkbox-container ">
-                <input type="checkbox" id="remember">
-                <label for="remember">ចងចាំខ្ញុំ</label>
-              </div>
-              <a href="#" class="forgot-link">ភ្លេចពាក្យសម្ងាត់?</a>
-            </div>
-
+            <br>
             <BaseButton type="submit" :loading="loading">
               {{ loading ? 'កំពុងដំណើរការ...' : 'ចូលប្រើប្រាស់' }}
             </BaseButton>

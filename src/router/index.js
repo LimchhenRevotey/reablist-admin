@@ -110,8 +110,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  let token = localStorage.getItem("token");
-  let role = localStorage.getItem("role");
+  let token = sessionStorage.getItem("token");
+  let role = sessionStorage.getItem("role");
   document.title = to.meta.title ? `${to.meta.title} | ReabList` : "ReabList";
   if (to.name !== "Login") {
     if (!token) {
