@@ -11,6 +11,7 @@ import CreateUser from "@/views/pages/usersDiretory/CreateUser.vue";
 import UserDiretory from "@/views/pages/usersDiretory/UserDiretory.vue";
 import ViewUser from "@/views/pages/usersDiretory/ViewUser.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import NotFount from "@/views/pages/notfound/NotFound.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -102,6 +103,7 @@ const router = createRouter({
 
       ],
     },
+    { path: "/:catchAll(.*)", component: NotFount }, // 404 Not Found route
 
   ],
   linkActiveClass: "active",
