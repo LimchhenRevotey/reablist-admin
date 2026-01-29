@@ -3,7 +3,8 @@ import axios from "axios";
 const api = axios.create({
   baseURL:
     import.meta.env.VITE_BASE_URL ||
-    "http://ant-g6-todolist.tt.linkpc.net/api/v1",
+    // "http://ant-g6-todolist.tt.linkpc.net/api/v1", old Base URL
+    "https://ant-g6-todolist.ti.linkpc.net/api/v1",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
