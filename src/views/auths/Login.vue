@@ -6,7 +6,7 @@ import { ref } from 'vue';
 import router from '@/router';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseModal from '@/components/ui/BaseModal.vue';
-import loginImage from '@/assets/images/bg-login.png';
+import loginImage from '@/assets/images/login.png';
 
 let authStore = useAuthStore();
 let email = ref('');
