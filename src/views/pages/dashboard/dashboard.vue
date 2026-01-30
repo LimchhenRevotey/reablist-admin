@@ -1,3 +1,43 @@
+<script setup>
+import { ref, onMounted } from "vue";
+import Chart from "primevue/chart";
+import api from "@/api/api";
+
+const chartData = ref();
+const chartOptions = ref();
+const selectedPeriod = ref('សប្ដាហ៍');
+const dataUser = ref({
+    totalUsers: 0,
+    totalNotes: 0,
+    totalCompletedNotes: 0,
+    totalIncompletedNotes: 0,
+});
+
+const updateChartData = async (period) => {
+    selectedPeriod.value = period;
+    try {
+        const response = await api.get(`/admin/summary?period=${period}`,);
+        dataUser.value = response.data.data;
+        console.log(dataUser.value);
+        chartData.value = {
+            labels: period === 'សប្ដាហ៍' ? ['ច័ន្ទ', 'អង្គារ', 'ពុធ', 'ព្រហ', 'សុក្រ', 'សៅរ៍', 'អាទិត្យ'] :
+                period === 'ខែ' ? ['សប្តាហ៍ទី១', 'សប្តាហ៍ទី២', 'សប្តាហ៍ទី៣', 'សប្តាហ៍ទី៤'] : ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា'],
+            datasets: [{
+                label: `ស្ថិតិកិច្ចការ (${period})`,
+                backgroundColor: '#13707F',
+                data: dataUser.value.chart_values || [10, 20, 15, 25, 22, 30, 28],
+                borderRadius: 6
+            }]
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+onMounted(() => {
+    updateChartData('សប្ដាហ៍');
+    chartOptions.value = { maintainAspectRatio: false, aspectRatio: 0.8 };
+});
+</script>
 <template>
     <section id="section-dashboard" class="content-section active">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -10,51 +50,59 @@
 
         <div class="row g-4 mb-4">
             <div class="col-md-3">
-                <div class="card stat-card">
+                <div class="card stat-card shadow-sm border-0">
                     <h6 class="text-muted small fw-bold mb-2">អ្នកប្រើប្រាស់ប្រព័ន្ធ</h6>
                     <div class="d-flex align-items-end justify-content-between">
-                        <h3 class="fw-bold mb-0">12,482</h3>
+                        <h3 class="fw-bold mb-0">{{ dataUser.totalUsers }}</h3>
                         <span class="text-success small fw-bold">+12.4% &uarr;</span>
                     </div>
                     <div class="progress mt-3" style="height: 4px;">
-                        <div class="progress-bar" style="width: 70%; background-color: var(--brand-primary)"></div>
+                        <div class="progress-bar"
+                            :style="{ width: Math.min((dataUser.totalUsers / 100) * 100, 100) + '%', backgroundColor: '#13707F' }">
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
-                <div class="card stat-card">
+                <div class="card stat-card shadow-sm border-0">
                     <h6 class="text-muted small fw-bold mb-2">ភារកិច្ចកំពុងដំណើរការ</h6>
                     <div class="d-flex align-items-end justify-content-between">
-                        <h3 class="fw-bold mb-0">45,021</h3>
+                        <h3 class="fw-bold mb-0">{{ dataUser.totalIncompletedNotes || 0 }}</h3>
                         <span class="text-info small fw-bold">+820 ថ្ងៃនេះ</span>
                     </div>
                     <div class="progress mt-3" style="height: 4px;">
-                        <div class="progress-bar bg-info" style="width: 45%"></div>
+                        <div class="progress-bar bg-info"
+                            :style="{ width: dataUser.totalNotes > 0 ? (dataUser.totalIncompletedNotes / dataUser.totalNotes * 100) + '%' : '0%' }">
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
-                <div class="card stat-card">
-                    <h6 class="text-muted small fw-bold mb-2">ការបញ្ចប់ជាមធ្យម</h6>
+                <div class="card stat-card shadow-sm border-0">
+                    <h6 class="text-muted small fw-bold mb-2">ភារកិច្ចដែលបានបញ្ចប់</h6>
                     <div class="d-flex align-items-end justify-content-between">
-                        <h3 class="fw-bold mb-0">68.5%</h3>
+                        <h3 class="fw-bold mb-0">{{ dataUser.totalCompletedNotes || 0 }}</h3>
                         <span class="text-success small fw-bold">ល្អប្រសើរ</span>
                     </div>
                     <div class="progress mt-3" style="height: 4px;">
-                        <div class="progress-bar bg-success" style="width: 68%"></div>
+                        <div class="progress-bar bg-success"
+                            :style="{ width: dataUser.totalNotes > 0 ? (dataUser.totalCompletedNotes / dataUser.totalNotes * 100) + '%' : '0%' }">
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
-                <div class="card stat-card" style="cursor: pointer"
-                    onclick="document.querySelector('[data-section=\'reports\']').click()">
-                    <h6 class="text-muted small fw-bold mb-2">ការជូនដំណឹងសុវត្ថិភាព</h6>
+                <div class="card stat-card shadow-sm border-0" style="cursor: pointer">
+                    <h6 class="text-muted small fw-bold mb-2">ភារកិច្ចទាំងអស់</h6>
                     <div class="d-flex align-items-end justify-content-between">
-                        <h3 class="fw-bold mb-0 text-danger">12</h3>
-                        <span class="text-danger small fw-bold">តម្រូវឱ្យពិនិត្យ</span>
+                        <h3 class="fw-bold mb-0 text-danger">{{ dataUser.totalNotes }}</h3>
+                        <span class="text-danger small fw-bold">សរុប</span>
                     </div>
                     <div class="progress mt-3" style="height: 4px;">
-                        <div class="progress-bar bg-danger" style="width: 90%"></div>
+                        <div class="progress-bar bg-danger" style="width: 100%"></div>
                     </div>
                 </div>
             </div>
@@ -66,30 +114,27 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h6 class="fw-bold mb-0">លំហូរនៃសកម្មភាពសរុប</h6>
                         <div class="btn-group btn-group-sm">
-                            <button class="btn btn-light border active">សប្ដាហ៍</button>
-                            <button class="btn btn-light border">ខែ</button>
-                            <button class="btn btn-light border">ឆ្នាំ</button>
+                            <button class="btn btn-light border-none"
+                                :class="{ 'active text-white': selectedPeriod === 'សប្ដាហ៍' }"
+                                :style="{ 'background-color': selectedPeriod === 'សប្ដាហ៍' ? '#13707F' : '' }"
+                                @click="updateChartData('សប្ដាហ៍')">
+                                សប្ដាហ៍
+                            </button>
+                            <button class="btn btn-light border-none"
+                                :class="{ 'active text-white': selectedPeriod === 'ខែ' }"
+                                :style="{ 'background-color': selectedPeriod === 'ខែ' ? '#13707F' : '' }"
+                                @click="updateChartData('ខែ')">
+                                ខែ
+                            </button>
+                            <button class="btn btn-light border-none"
+                                :class="{ 'active text-white': selectedPeriod === 'ឆ្នាំ' }"
+                                :style="{ 'background-color': selectedPeriod === 'ឆ្នាំ' ? '#13707F' : '' }"
+                                @click="updateChartData('ឆ្នាំ')">
+                                ឆ្នាំ
+                            </button>
                         </div>
                     </div>
-                    <div class="d-flex align-items-end justify-content-between pt-5" style="height: 300px;">
-                        <div class="bg-light rounded-top w-100 mx-1" style="height: 40%" title="Mon: 12.4k"></div>
-                        <div class="bg-light rounded-top w-100 mx-1" style="height: 60%" title="Tue: 18.2k"></div>
-                        <div class="bg-light rounded-top w-100 mx-1" style="height: 45%" title="Wed: 14.1k"></div>
-                        <div class="bg-light rounded-top w-100 mx-1" style="height: 80%" title="Thu: 22.5k"></div>
-                        <div class="rounded-top w-100 mx-1 shadow-sm"
-                            style="height: 95%; background-color: var(--brand-primary)" title="Fri: 28.1k"></div>
-                        <div class="bg-light rounded-top w-100 mx-1" style="height: 70%" title="Sat: 21.3k"></div>
-                        <div class="bg-light rounded-top w-100 mx-1" style="height: 85%" title="Sun: 24.8k"></div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3 text-muted small fw-bold">
-                        <span>ច័ន្ទ</span>
-                        <span>អង្គារ</span>
-                        <span>ពុធ</span>
-                        <span>ព្រហ</span>
-                        <span>សុក្រ</span>
-                        <span>សៅរ៍</span>
-                        <span>អាទិត្យ</span>
-                    </div>
+                    <Chart type="bar" :data="chartData" :options="chartOptions" class="h-75 mt-3" />
                 </div>
             </div>
 

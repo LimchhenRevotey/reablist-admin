@@ -36,7 +36,6 @@ const getUsers = async () => {
   try {
     const res = await api.get('/users?_page=1&_per_page=100&search&sortBy=id&sortDir=DESC');
     users.value = res.data.data?.items || res.data.data || [];
-    console.log("Fetched Users:", users.value);
   } catch (error) {
     console.error("API Error:", error);
   } finally {
@@ -64,7 +63,7 @@ const toggleStatus = async (user) => {
     await api.put(`/users/${user.id}`, {
       status: newStatus
     });
-    console.log(`User ${user.id} status updated to ${newStatus}`);
+    // console.log(`User ${user.id} status updated to ${newStatus}`);
   } catch (error) {
     console.error("Failed to update status:", error);
     user.status = oldStatus;
