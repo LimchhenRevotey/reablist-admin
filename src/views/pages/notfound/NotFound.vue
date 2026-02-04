@@ -12,12 +12,8 @@
       <!-- Optional badge -->
       <span class="error-badge">ERROR 404</span>
 
-      <img
-        src="/src/assets/images/notfound.png"
-        alt="រកមិនឃើញទំព័រ"
-        class="img-fluid mb-4 floating-image"
-        style="max-height: 220px;width: 900px;"
-      />
+      <img src="/src/assets/images/notfound.png" alt="រកមិនឃើញទំព័រ" class="img-fluid mb-4 floating-image"
+        style="max-height: 220px;width: 900px;" />
       <h5 class="text-muted mb-3">រកមិនឃើញទំព័រនេះទេ</h5>
 
       <p class="text-secondary mb-4">
@@ -40,7 +36,6 @@ export default {
 </script>
 
 <style scoped>
-
 .error-wrapper {
   position: relative;
   overflow: hidden;
@@ -64,20 +59,62 @@ export default {
 }
 
 
-.error-bg span:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
-.error-bg span:nth-child(2) { top: 30%; left: 60%; animation-delay: 1s; }
-.error-bg span:nth-child(3) { top: 60%; left: 25%; animation-delay: 2s; }
-.error-bg span:nth-child(4) { top: 75%; left: 70%; animation-delay: 3s; }
-.error-bg span:nth-child(5) { top: 45%; left: 45%; animation-delay: 4s; }
-.error-bg span:nth-child(6) { top: 20%; left: 80%; animation-delay: 5s; }
-.error-bg span:nth-child(7) { top: 80%; left: 10%; animation-delay: 2.5s; }
-.error-bg span:nth-child(8) { top: 55%; left: 85%; animation-delay: 1.5s; }
+.error-bg span:nth-child(1) {
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.error-bg span:nth-child(2) {
+  top: 30%;
+  left: 60%;
+  animation-delay: 1s;
+}
+
+.error-bg span:nth-child(3) {
+  top: 60%;
+  left: 25%;
+  animation-delay: 2s;
+}
+
+.error-bg span:nth-child(4) {
+  top: 75%;
+  left: 70%;
+  animation-delay: 3s;
+}
+
+.error-bg span:nth-child(5) {
+  top: 45%;
+  left: 45%;
+  animation-delay: 4s;
+}
+
+.error-bg span:nth-child(6) {
+  top: 20%;
+  left: 80%;
+  animation-delay: 5s;
+}
+
+.error-bg span:nth-child(7) {
+  top: 80%;
+  left: 10%;
+  animation-delay: 2.5s;
+}
+
+.error-bg span:nth-child(8) {
+  top: 55%;
+  left: 85%;
+  animation-delay: 1.5s;
+}
 
 @keyframes jump {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
     opacity: 0.15;
   }
+
   50% {
     transform: translateY(-40px);
     opacity: 0.3;
@@ -90,9 +127,17 @@ export default {
 }
 
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 
@@ -102,11 +147,9 @@ export default {
   max-width: 500px;
   padding: 2.5rem 2rem;
   border-radius: 20px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.98),
-    rgba(255, 255, 255, 0.92)
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(255, 255, 255, 0.92));
   backdrop-filter: blur(10px);
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.15),
@@ -121,6 +164,7 @@ export default {
     opacity: 0;
     transform: scale(0.96) translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
