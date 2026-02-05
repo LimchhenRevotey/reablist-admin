@@ -43,7 +43,7 @@ onMounted(() => {
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-800 mb-0" style="font-weight: 800;">ផ្ទាំងព័ត៌មាន</h3>
             <div class="d-flex gap-2">
-                <button class="btn btn-light border btn-sm">ផ្ទុកទិន្នន័យឡើងវិញ</button>
+                <button class="btn btn-light border btn-sm rounded-3">ផ្ទុកទិន្នន័យឡើងវិញ</button>
                 <button class="btn btn-brand btn-sm">បង្កើតរបាយការណ៍ PDF</button>
             </div>
         </div>
@@ -139,44 +139,52 @@ onMounted(() => {
             </div>
 
             <div class="col-lg-4">
-                <div class="card p-4 h-100">
-                    <h6 class="fw-bold mb-4">សកម្មភាពបច្ចុប្បន្នជាក់ស្តែង</h6>
-                    <div class="list-group list-group-flush small" id="activity-feed">
-                        <div class="list-group-item px-0 py-3 border-0 border-bottom">
-                            <div class="d-flex gap-2">
-                                <div class="p-1 bg-primary-subtle rounded text-primary"><i data-lucide="user-plus"
-                                        size="14"></i></div>
-                                <div>
-                                    <p class="mb-0 fw-bold">អ្នកប្រើប្រាស់ថ្មីបានចុះឈ្មោះ</p>
-                                    <p class="mb-0 text-muted small">Sarah Jenkins បានចូលរួមក្នុងប្រព័ន្ធ</p>
-                                    <small class="text-muted">២ នាទីមុន</small>
+                <div class="card border-0 shadow-sm h-100 " style="border-radius:22px;">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-4">លំហូរព័ត៌មានសកម្មភាពថ្មីៗ</h5>
+                        <div class="d-flex flex-column gap-4">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-4"
+                                    style="width: 56px; height: 56px;">
+                                    <i class="bi bi-person-fill" style="font-size: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1 border-bottom">
+                                    <h6 class="mb-0 fw-bold">ការចុះឈ្មោះអ្នកប្រើប្រាស់ថ្មី</h6>
+                                    <p class="mb-0 text-muted">Sara Van បានចូលរួមក្នុងប្រព័ន្ធ</p>
+                                    <small class="text-body-tertiary">២ នាទីមុន</small>
                                 </div>
                             </div>
-                        </div>
-                        <div class="list-group-item px-0 py-3 border-0 border-bottom">
-                            <div class="d-flex gap-2">
-                                <div class="p-1 bg-success-subtle rounded text-success"><i data-lucide="check"
-                                        size="14"></i></div>
-                                <div>
-                                    <p class="mb-0 fw-bold">សម្រេចបានសមិទ្ធផល</p>
-                                    <p class="mb-0 text-muted small">ភារកិច្ច #4021 បានបញ្ចប់</p>
-                                    <small class="text-muted">១២ នាទីមុន</small>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center justify-content-center bg-success-subtle text-success rounded-4"
+                                    style="width: 56px; height: 56px;">
+                                    <i class="bi bi-check-lg" style="font-size: 28px;"></i>
+                                </div>
+                                <div class="flex-grow-1 border-bottom">
+                                    <h6 class="mb-0 fw-bold">សមិទ្ធផលសម្រេច</h6>
+                                    <p class="mb-0 text-muted">ភារកិច្ច {{ dataUser.totalCompletedNotes }} បានបញ្ចប់</p>
+                                    <small class="text-body-tertiary">១៣ នាទីមុន</small>
                                 </div>
                             </div>
-                        </div>
-                        <div class="list-group-item px-0 py-3 border-0">
-                            <div class="d-flex gap-2">
-                                <div class="p-1 bg-danger-subtle rounded text-danger"><i data-lucide="alert-octagon"
-                                        size="14"></i></div>
-                                <div>
-                                    <p class="mb-0 fw-bold">ការបំពានសុវត្ថិភាព</p>
-                                    <p class="mb-0 text-muted small">បានបិទ IP ដែលគួរឱ្យសង្ស័យ: 192.168.1.1</p>
-                                    <small class="text-muted">១ ម៉ោងមុន</small>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center justify-content-center bg-danger-subtle text-danger rounded-4 p-4"
+                                    style="width: 56px; height: 56px;">
+                                    <i class="bi bi-exclamation-circle-fill" style="font-size: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0 fw-bold">ការបំពានសុវត្ថិភាព</h6>
+                                    <p class="mb-0 text-muted">បានបិទ IP ដែលគួរឱ្យសង្ស័យ: 192.168.1.1</p>
+                                    <small class="text-body-tertiary">១ ម៉ោងមុន</small>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                    <button class="btn btn-light w-100 mt-auto small fw-bold">មើលកំណត់ត្រាសរុប</button>
+                    <button class="btn btn-light w-75 mt-auto p-2 mb-2 fw-bold text-secondary d-flex justify-content-center mx-auto"
+                        style="border-radius: 12px;">
+                        មើលកំណត់ត្រាសរុប
+                    </button>
                 </div>
             </div>
         </div>
@@ -209,7 +217,7 @@ onMounted(() => {
     background-color: var(--brand-primary);
     color: white;
     padding: 0.6rem 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: 0.50rem;
     font-weight: 700;
     border: none;
     transition: all 0.2s;
