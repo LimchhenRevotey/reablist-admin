@@ -19,10 +19,10 @@ const rows = [
   },
   {
     timestamp: "2025-10-24 11:45:12",
-    admin: "Alex Thompson",
+    admin: "Lisa Wong",
     action: "USER_CREATE",
     target: "UID#4055",
-    outcome: "SUCCESS",
+    outcome: "NOSUCCESS",
   },
 ];
 </script>
@@ -35,20 +35,11 @@ const rows = [
 
     <div class="card overflow-hidden border-0 shadow-sm rounded-4">
       <BaseTable :columns="columns" :rows="rows">
-        
-        <!-- Admin column -->
-        <template #cell-admin>
-          
-        </template>
-
-        <!-- Action column -->
-        <template #cell-action>
-          
-        </template>
-
         <!-- Outcome column -->
-        <template #cell-outcome>
-          
+        <template #cell-outcome="{ row }">
+          <span :class="row.outcome === 'SUCCESS' ? 'text-success' : 'text-danger'">
+            {{ row.outcome }}
+          </span>
         </template>
 
       </BaseTable>
