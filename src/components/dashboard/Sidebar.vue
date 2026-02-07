@@ -139,7 +139,7 @@ const handleLogout = async () => {
 
 /* Overlay visible */
 #overlay.show {
-  display: block;
+    display: block;
 }
 .text-teal {
     color: #1491a2;

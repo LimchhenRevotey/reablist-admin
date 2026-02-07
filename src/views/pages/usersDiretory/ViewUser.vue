@@ -1,31 +1,35 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import api from '@/api/api';
 import { useDate } from '@/composible/UseDate';
 import { useNotesStore } from '@/stores/notesStore';
+
 let notesStore = useNotesStore();
 const { formatDate } = useDate();
 const route = useRoute();
 const userId = route.params.id;
 const user = ref({});
 
-onMounted(() => {
-    viewUser();
-    notesStore.getAllNotes();
+const currentUserStats = computed(() => {
+    return notesStore.notes.find(n => n.id == userId) || {};
 });
-
 const viewUser = async () => {
     try {
-        const res = await api.get(`/users/${userId}`);
+        const [res] = await Promise.all([
+            api.get(`/users/${userId}`),
+            notesStore.getAllNotes(userId)
+        ]);
         user.value = res.data.data;
-        console.log(notesStore.getAllNotes());
-        
 
     } catch (error) {
         console.error(error);
     }
 };
+
+onMounted(() => {
+    viewUser();
+});
 </script>
 
 <template>
@@ -89,24 +93,29 @@ const viewUser = async () => {
                     <div class="card-body">
 
                         <h5 class="fw-bold mb-4">សង្ខេបសកម្មភាព</h5>
-
                         <div class="row g-3 mb-5">
                             <div class="col-md-4">
                                 <div class="stat-box stat-gray p-4 rounded-4 text-center">
-                                    <h2 class="fw-bold mb-1" style="color: #4b5563;">{{ notesStore.notes.totalItem }}</h2>
+                                    <h2 class="fw-bold mb-1" style="color: #4b5563;">
+                                        {{ currentUserStats.totalCreatedTasks }}
+                                    </h2>
                                     <div class="small fw-bold text-secondary tracking-wide">បានបង្កើតភារកិច្ច</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="stat-box stat-blue p-4 rounded-4 text-center">
-                                    <h2 class="fw-bold mb-1" style="color: #2563eb;">{{ notesStore.notes.totalPage }}</h2>
+                                    <h2 class="fw-bold mb-1" style="color: #2563eb;">
+                                        {{ currentUserStats.totalCompletedTasks }}
+                                    </h2>
                                     <div class="small fw-bold text-primary-subtle tracking-wide"
                                         style="color: #60a5fa;">បានបញ្ចប់ភារកិច្ច</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="stat-box stat-green p-4 rounded-4 text-center">
-                                    <h2 class="fw-bold mb-1" style="color: #16a34a;">{{ notesStore.notes.totalPage > 0 ? Math.round((notesStore.notes.totalPage / notesStore.notes.totalItem * 100)) : 0 }}%</h2>
+                                    <h2 class="fw-bold mb-1" style="color: #16a34a;">
+                                        {{currentUserStats.effectivenessPercent}}%
+                                    </h2>
                                     <div class="small fw-bold text-success-subtle tracking-wide"
                                         style="color: #4ade80;">ប្រសិទ្ធភាព</div>
                                 </div>

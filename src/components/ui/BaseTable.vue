@@ -60,7 +60,7 @@ const changePage = (page) => {
 </script>
 <template>
   <div>
-    <table class="table mb-0 table align-middle">
+    <table class="table mb-0 align-middle">
       <thead>
         <tr class="text-center">
           <th v-for="col in columns" :key="col.key" :class="col.class">
@@ -92,7 +92,8 @@ const changePage = (page) => {
         </tr>
       </tbody>
     </table>
-    <div v-if="totalPages > 1" class="pagination-container d-flex justify-content-between align-items-center mt-4 px-2 py-3">
+    <div v-if="totalPages > 1"
+      class="pagination-container d-flex justify-content-between align-items-center mt-4 px-2 py-3">
       <small class="text-muted">
         ទំព័រ {{ currentPage }} នៃ {{ totalPages }}
       </small>
@@ -102,12 +103,10 @@ const changePage = (page) => {
             <i class="bi bi-chevron-left"></i>
           </button>
         </li>
-
         <li v-for="(page, index) in visiblePages" :key="index" class="page-item">
           <button class="page-link" :class="{
             'active-page': page === currentPage,
-            'dots': page === '...'
-          }" @click="changePage(page)">
+            'dots': page === '...'}" @click="changePage(page)">
             {{ page }}
           </button>
         </li>
