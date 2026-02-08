@@ -88,7 +88,7 @@ onMounted(() => {
                 <div class="input-group custom-search-box">
                     <span class="d-flex align-items-center px-2">
                         <i v-if="!isSearching" class="bi bi-search text-muted"></i>
-                        <span v-else class="spinner-border spinner-border-sm text-primary"></span>
+                        <span v-else class="spinner-border spinner-border-sm text-teal"></span>
                     </span>
                     <input type="text" v-model="searchQuery" @focus="showDropdown = searchQuery.length > 0"
                         @blur="closeDropdown" class="form-control border-0 py-2"
@@ -154,6 +154,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.text-teal{
+    color: #13707F;
+}
 .top-navbar {
     height: 80px;
     background: rgba(255, 255, 255, 0.98);
@@ -173,7 +176,7 @@ onMounted(() => {
     background: #f1f3f5;
     border-radius: 12px;
     padding: 2px 8px;
-    transition: all 0.3s ease;
+    transition: all 0.4m ease;
 }
 
 .custom-search-box:focus-within {
