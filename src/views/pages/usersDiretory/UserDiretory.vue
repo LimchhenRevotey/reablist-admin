@@ -42,16 +42,17 @@ const createUser = () => {
 };
 
 // Change User Status
-const toggleStatus = async (user) => {
-  const isActive = user.status === 'ACTIVATED';
+const toggleStatus = async (users) => {
+  if (!users) return;
+  const isActive = users.status === 'ACTIVATED';
   const newStatus = isActive ? "DEACTIVATED" : "ACTIVATED";
-  const oldStatus = user.status;
-  user.status = newStatus;
+  const oldStatus = users.status;
+  users.status = newStatus;
   try {
-    await api.put(`/users/${user.id}`, { status: newStatus });
+    await api.put(`/users/${users.id}`, { status: newStatus });
   } catch (error) {
     console.error("Failed to update status:", error);
-    user.status = oldStatus;
+    users.status = oldStatus;
     isShowModal.value = true;
   }
 }
@@ -95,7 +96,7 @@ onMounted(async () => {
                     <span class="badge rounded-pill px-3 py-2" :class="row.role?.name?.toLowerCase().includes('admin')
                       ? 'bg-primary-subtle text-primary'
                       : 'bg-info-subtle text-info'">
-                      {{ row.role?.name || 'User' }}
+                      {{ row.role?.name }}
                     </span>
                   </template>
 
