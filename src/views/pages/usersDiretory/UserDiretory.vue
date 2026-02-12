@@ -12,10 +12,10 @@ const users = ref([]);
 const isShowModal = ref(false);
 
 const columns = [
-  { key: "avatar", label: "រូបភាព", class: "d-none d-md-table-cell", bodyClass: "d-none d-md-table-cell" },
+  { key: "avatar", label: "រូបភាព", class: "d-md-table-cell", bodyClass: "d-md-table-cell" },
   { key: "user", label: "ព័ត៌មានអ្នកប្រើប្រាស់", class: "text-start ps-4", bodyClass: "text-start ps-4 py-3" },
-  { key: "role", label: "តួនាទី", class: "d-none d-md-table-cell", bodyClass: "d-none d-md-table-cell" },
-  { key: "status", label: "ស្ថានភាព", class: "d-none d-sm-table-cell", bodyClass: "d-none d-sm-table-cell" },
+  { key: "role", label: "តួនាទី", class: " d-md-table-cell", bodyClass: " d-md-table-cell" },
+  { key: "status", label: "ស្ថានភាព", class: " d-sm-table-cell", bodyClass: " d-sm-table-cell" },
 ];
 
 const getUsers = async () => {
