@@ -21,7 +21,7 @@ const columns = [
 const getUsers = async () => {
   isLoading.value = true;
   try {
-    const res = await api.get('/users?_page=1&_per_page=10&sortBy=id&sortDir=DESC');
+    const res = await api.get('/users?_page=1&_per_page=100&sortBy=id&sortDir=DESC');
     users.value = res.data.data?.items || [];
   } catch (error) {
     console.error("API Error:", error);
