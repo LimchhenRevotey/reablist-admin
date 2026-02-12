@@ -79,42 +79,40 @@ onMounted(() => {
 
 <template>
     <header class="top-navbar">
-        <div class="d-flex align-items-center">
-            <button class="btn btn-light d-lg-none me-3" @click="sideBarStore.toggleSidebar" id="sidebar-toggle">
+        <div class="header-left d-flex align-items-center flex-grow-1">
+            <button class="btn btn-light d-lg-none me-2 rounded-circle" @click="sideBarStore.toggleSidebar"
+                id="sidebar-toggle">
                 <i class="bi bi-list fs-4"></i>
             </button>
 
-            <div class="search-container d-none d-md-block position-relative">
+            <div class="search-container position-relative flex-grow-1">
                 <div class="input-group custom-search-box">
                     <span class="d-flex align-items-center px-2">
                         <i v-if="!isSearching" class="bi bi-search text-muted"></i>
                         <span v-else class="spinner-border spinner-border-sm text-teal"></span>
                     </span>
                     <input type="text" v-model="searchQuery" @focus="showDropdown = searchQuery.length > 0"
-                        @blur="closeDropdown" class="form-control border-0 py-2"
-                        placeholder="ស្វែងរកឈ្មោះ, អ៊ីមែល, លេខទូរស័ព្ទ...">
+                        @blur="closeDropdown" class="form-control border-0 py-2" placeholder="ស្វែងរកឈ្មោះ...">
                 </div>
 
                 <div v-if="showDropdown" class="custom-dropdown shadow-lg border-0 rounded-4">
-
                     <template v-if="searchResults.length > 0">
                         <div class="dropdown-header-title d-flex justify-content-between align-items-center">
                             <span>អ្នកប្រើប្រាស់ដែលរកឃើញ</span>
-                            <span class="badge rounded-pill">{{ searchResults.length }} នាក់</span>
+                            <span class="badge rounded-pill">{{ searchResults.length }}​ នាក់</span>
                         </div>
 
                         <div class="list-wrapper">
                             <div v-for="user in searchResults" :key="user.id" @click="viewUser(user)"
                                 class="custom-search-item">
-
                                 <div class="avatar-wrapper">
                                     <img :src="user.avatar || 'https://ui-avatars.com/api/?name=' + user.fullname"
-                                        class="rounded-circle border-2 border-white shadow-sm" width="45" height="45">
+                                        class="rounded-circle border-2 border-white shadow-sm" width="45" height="45"
+                                        style="object-fit: cover;" />
                                     <div class="status-indicator"></div>
                                 </div>
-
                                 <div class="user-details overflow-hidden">
-                                    <div class="user-name">{{ user.fullname }}</div>
+                                    <div class="user-name text-truncate">{{ user.fullname }}</div>
                                     <div class="user-email text-truncate">{{ user.email }}</div>
                                 </div>
                                 <i class="bi bi-chevron-right ms-auto arrow-icon"></i>
@@ -124,59 +122,57 @@ onMounted(() => {
 
                     <div v-else-if="!isSearching && searchQuery.trim() !== ''" class="p-4 text-center">
                         <i class="bi bi-search fs-2 text-muted mb-2"></i>
-                        <div class="fw-bold text-secondary small">រកមិនឃើញទិន្នន័យសម្រាប់ "{{ searchQuery }}"</div>
-                        <div class="text-muted" style="font-size: 0.7rem;">សូមព្យាយាមឆែកឈ្មោះ ឬអ៊ីមែលឡើងវិញ</div>
+                        <div class="fw-bold text-secondary small">រកមិនឃើញ "{{ searchQuery }}"</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="d-flex align-items-center gap-3">
-            <router-link :to="{ name: 'Profile' }" class="d-flex align-items-center gap-2 border-end pe-3 nav-link">
-                <div class="text-end d-none d-sm-block">
-                    <div class="fw-bold small">{{ profileStore.dataProfiles?.fullname || 'Username' }}</div>
-                    <div class="text-muted small fw-bold text-primary">
+        <div class="header-right d-flex align-items-center gap-2 gap-md-3 ms-3">
+            <router-link :to="{ name: 'Profile' }" class="d-flex align-items-center gap-2 nav-link profile-link">
+                <div class="text-end d-none d-lg-block">
+                    <div class="fw-bold small lh-1">{{ profileStore.dataProfiles?.fullname || 'Username' }}</div>
+                    <div class=" small fw-bold mt-1 text-teal">
                         {{ profileStore.dataProfiles?.email || 'email@example.com' }}
                     </div>
                 </div>
                 <img :src="profileStore.dataProfiles?.avatar || 'https://via.placeholder.com/50'"
-                    class="rounded-circle border" width="45" height="45" alt="Avatar">
+                    class="rounded-circle border" width="50" height="50" alt="Avatar">
             </router-link>
 
-            <button type="button" class="btn position-relative notification-btn">
+            <button type="button" class="btn notification-btn">
                 <i class="bi bi-bell-fill"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    99+
-                </span>
+                <span class="badge rounded-pill bg-danger">99+</span>
             </button>
         </div>
     </header>
 </template>
 
 <style scoped>
-.text-teal{
+.text-teal {
     color: #13707F;
 }
+
 .top-navbar {
-    height: 80px;
+    height: 70px;
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid #ececec;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 0 1rem;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
 .custom-search-box {
-    width: 420px;
     background: #f1f3f5;
     border-radius: 12px;
     padding: 2px 8px;
-    transition: all 0.4m ease;
+    transition: all 0.3s ease;
+    max-width: 420px;
 }
 
 .custom-search-box:focus-within {
@@ -197,6 +193,7 @@ onMounted(() => {
 
 .custom-dropdown {
     position: absolute;
+    max-width: 65%;
     top: 115%;
     left: 0;
     right: 0;
@@ -218,12 +215,11 @@ onMounted(() => {
 }
 
 .dropdown-header-title {
-    padding: 12px 16px;
-    font-size: 0.75rem;
+    padding: 10px 16px;
+    font-size: 0.7rem;
     font-weight: 700;
     color: #adb5bd;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     border-bottom: 1px solid #f8f9fa;
 }
 
@@ -240,24 +236,26 @@ onMounted(() => {
 .custom-search-item {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 12px 16px;
+    gap: 12px;
+    padding: 10px 16px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: 0.2s;
     border-bottom: 1px solid #f8f9fa;
-}
-
-.custom-search-item:last-child {
-    border-bottom: none;
 }
 
 .custom-search-item:hover {
     background-color: #f4fbfc;
 }
 
-.custom-search-item:hover .arrow-icon {
-    transform: translateX(3px);
-    color: #13707F;
+.user-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #343a40;
+}
+
+.user-email {
+    font-size: 0.75rem;
+    color: #6c757d;
 }
 
 .avatar-wrapper {
@@ -275,38 +273,69 @@ onMounted(() => {
     border-radius: 50%;
 }
 
-.user-name {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #343a40;
-    line-height: 1.2;
-}
-
-.user-email {
-    font-size: 0.75rem;
-    color: #6c757d;
-}
-
-.arrow-icon {
-    font-size: 0.85rem;
-    color: #dee2e6;
-    transition: 0.2s;
-}
-
 .notification-btn {
+    position: relative;
     color: #13707F;
-    background-color: #ffffff;
     border: 1px solid #13707F;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
+}
+
+.notification-btn .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 0.6rem;
 }
 
 .notification-btn:hover {
-    background-color: #13707F;
-    color: #fff;
+    background: #13707F;
+    color: white;
+}
+
+.profile-link {
+    border-right: 1px solid #ececec;
+    padding-right: 1rem;
+}
+
+@media (min-width: 992px) {
+    .top-navbar {
+        height: 80px;
+        padding: 0 2rem;
+    }
+
+    .custom-search-box {
+        width: 420px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .profile-link {
+        border-right: none;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .top-navbar {
+        padding: 0 0.8rem;
+    }
+
+    .custom-search-box {
+        max-width: 100%;
+    }
+
+    .custom-dropdown {
+        position: fixed;
+        top: 72px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+    }
 }
 </style>

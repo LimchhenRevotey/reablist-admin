@@ -51,7 +51,7 @@ const changePage = (page) => {
 
 <template>
   <div class="base-table-wrapper">
-    <div class="table-responsive">
+    <div class="table-responsive custom-scrollbar">
       <table class="table mb-0 align-middle">
         <thead>
           <tr class="text-center text-nowrap">
@@ -85,53 +85,85 @@ const changePage = (page) => {
       </table>
     </div>
 
-    <div v-if="totalPages > 1"
-      class="pagination-container d-flex flex-column flex-sm-row justify-content-between align-items-center mt-4 gap-3">
-      <small class="text-muted order-2 order-sm-1">ទំព័រ {{ currentPage }} នៃ {{ totalPages }}</small>
-      <ul class="pagination mb-0 order-1 order-sm-2">
-        <li class="page-item" :class="{ disabled: currentPage === 1 }">
-          <button class="page-link icon-btn" @click="changePage(currentPage - 1)">
-            <i class="bi bi-chevron-left"></i>
-          </button>
-        </li>
-        <li v-for="(page, index) in visiblePages" :key="index" class="page-item d-none d-sm-block">
-          <button class="page-link" :class="{ 'active-page': page === currentPage, 'dots': page === '...' }"
-            @click="changePage(page)">
-            {{ page }}
-          </button>
-        </li>
-        <li class="page-item d-sm-none">
-          <span class="page-link active-page">{{ currentPage }}</span>
-        </li>
-        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-          <button class="page-link icon-btn" @click="changePage(currentPage + 1)">
-            <i class="bi bi-chevron-right"></i>
-          </button>
-        </li>
-      </ul>
+    <div v-if="totalPages > 1" class="pagination-container mt-4">
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+        <small class="text-muted order-2 order-sm-1">ទំព័រ {{ currentPage }} នៃ {{ totalPages }}</small>
+        <ul class="pagination mb-0 order-1 order-sm-2">
+          <li class="page-item" :class="{ disabled: currentPage === 1 }">
+            <button class="page-link icon-btn" @click="changePage(currentPage - 1)">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+          </li>
+          <li v-for="(page, index) in visiblePages" :key="index" class="page-item d-none d-sm-block">
+            <button class="page-link" :class="{ 'active-page': page === currentPage, 'dots': page === '...' }"
+              @click="changePage(page)">
+              {{ page }}
+            </button>
+          </li>
+          <li class="page-item d-sm-none">
+            <span class="page-link active-page">{{ currentPage }}</span>
+          </li>
+          <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+            <button class="page-link icon-btn" @click="changePage(currentPage + 1)">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.table thead th {
-  background: #daeaeb;
+.table {
+  min-width: 900px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #daeaeb !important;
   color: #13707f;
   padding: 1.25rem 1rem;
   font-weight: 800;
-  border: none;
+  border-bottom: 2px solid #13707f;
+}
+
+.custom-scrollbar {
+  max-height: 450px;
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table tbody td {
   background: #fdfdfd;
   border-bottom: 1px solid #eee;
+  white-space: nowrap;
+  padding: 1rem !important;
 }
 
-.table-responsive {
-  border-radius: 15px;
-  overflow: hidden;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #13707f;
+  border-radius: 10px;
+}
+
+/* Pagination */
 .pagination {
   gap: 5px;
 }
@@ -142,18 +174,16 @@ const changePage = (page) => {
   color: #64748b;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 50% !important;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.85rem;
-  transition: 0.2s;
 }
 
 .page-link.active-page {
   background: #13707f !important;
   color: white !important;
-  box-shadow: 0 4px 10px rgba(19, 112, 127, 0.3);
 }
 
 .icon-btn {
