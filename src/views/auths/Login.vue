@@ -79,8 +79,8 @@ const closeModal = () => {
         <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 p-lg-5">
 
           <div class=" w-100" style="max-width: 450px;">
-            <h1 class="fw-bold text-dark mb-2" style="font-size: 2.5rem;">ចូលប្រើប្រាស់គណនី</h1>
-            <p class="text-secondary mb-2">សូមបញ្ចូលព័ត៌មានរបស់អ្នកដើម្បីបន្ត</p>
+            <h1 class="fw-bold text-dark mb-2 fs-1" style="font-size: 2.5rem;">ចូលប្រើប្រាស់គណនី</h1>
+            <p class="text-secondary mb-2 ">សូមបញ្ចូលព័ត៌មានរបស់អ្នកដើម្បីបន្ត</p>
 
             <form action="" @submit.prevent="handleLogin">
               <BaseInput label="អ៊ីមែល" type="email" placeholder="បញ្ចូលអ៊ីមែលរបស់អ្នក" :message_error="error.email"
@@ -122,19 +122,25 @@ const closeModal = () => {
 </template>
 
 <style scoped>
-.login-wrapper{
+
+.login-wrapper {
+  position: relative;
   background-color: #9bc3cb;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.card{
-  width: 1000px !important;
-  height: 600px !important;
+.card {
+  width: 1000px;
+  height: 600px;
   box-shadow: 1px 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
 }
-.images-left{
-  margin-bottom: 130px !important;
+
+.images-left {
+  margin-bottom: 130px;
 }
+
 .social-btn {
   width: 50px;
   height: 50px;
@@ -145,6 +151,13 @@ const closeModal = () => {
   transform: translateY(-2px);
   background-color: #f8f9fa;
 }
+
+.icon-box {
+  font-size: 80px;
+  line-height: 1;
+}
+
+
 
 .shape-main {
   position: absolute;
@@ -157,11 +170,6 @@ const closeModal = () => {
   z-index: 1;
 }
 
-.icon-box {
-  font-size: 80px;
-  line-height: 1;
-}
-
 .shape-bottom-left {
   position: absolute;
   bottom: -90px;
@@ -172,8 +180,8 @@ const closeModal = () => {
   border-radius: 50%;
   box-shadow: 1px 4px 20px rgba(216, 215, 215, 0.1);
   z-index: 10;
- 
 }
+
 .shape-bottom-center {
   position: absolute;
   bottom: 25px;
@@ -184,7 +192,6 @@ const closeModal = () => {
   background: linear-gradient(180deg,#65afbc, #32606a);
   border-radius: 50%;
   z-index: 10;
- 
 }
 
 .shape-bottom-right {
@@ -198,6 +205,7 @@ const closeModal = () => {
   box-shadow: 1px 4px 20px rgba(216, 215, 215, 0.1);
   z-index: 1;
 }
+
 .shape-top {
   position: absolute;
   top: -130px;
@@ -209,6 +217,8 @@ const closeModal = () => {
   box-shadow: 1px 4px 20px rgba(216, 215, 215, 0.1);
   z-index: 1;
 }
+
+
 
 .form-actions {
   display: flex;
@@ -243,13 +253,103 @@ input[type="checkbox"] {
   font-weight: 600;
 }
 
+
+
 @media (max-width: 991px) {
+  .card {
+    width: 90%;
+    height: auto;
+    min-height: 520px;
+  }
+
   .shape-main {
-    width: 150%;
-    height: 50vh;
-    left: -25%;
-    top: -10%;
-    border-radius: 0 0 50% 50%;
+    width: 70vw;
+    height: 70vh;
+    top: -25%;
+    left: -30%;
+  }
+
+  .shape-bottom-left {
+    width: 220px;
+    height: 220px;
+    left: -120px;
+    bottom: -100px;
+  }
+
+  .shape-bottom-center {
+    width: 130px;
+    height: 130px;
+    left: 30%;
+    bottom: 30px;
+  }
+
+  .shape-bottom-right {
+    width: 220px;
+    height: 220px;
+    right: -120px;
+    bottom: -120px;
+  }
+
+  .shape-top {
+    width: 220px;
+    height: 220px;
+    right: -120px;
+    top: -120px;
   }
 }
+
+
+
+@media (max-width: 576px) {
+  .card {
+    width: 92%;
+    height: auto;
+    padding: 24px;
+  }
+
+  .images-left {
+    margin-bottom: 40px;
+  }
+
+  .icon-box {
+    font-size: 60px;
+  }
+
+  .shape-main {
+    width: 63%;
+    height: 32vh;
+    left: -20%;
+    top: -22%;
+  }
+
+  .shape-bottom-left {
+    width: 160px;
+    height: 160px;
+    left: -90px;
+    bottom: -50px;
+  }
+
+  .shape-bottom-center {
+    width: 130px;
+    height: 130px;
+    left: 20%;
+    bottom: -60px;
+  }
+
+  .shape-bottom-right {
+    width: 160px;
+    height: 160px;
+    right: -60px;
+    bottom: -60px;
+  }
+
+  .shape-top {
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    top: -50px;
+  }
+}
+
+
 </style>
