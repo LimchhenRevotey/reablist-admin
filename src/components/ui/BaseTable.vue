@@ -117,7 +117,6 @@ const changePage = (page) => {
 <style scoped>
 .table {
   min-width: 310px;
-  /* max-width: 310px; */
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -135,13 +134,22 @@ thead th {
 
 .custom-scrollbar {
   min-width: 310px;
-  /* max-width: 310px; */
   overflow: auto;
   border-radius: 12px;
   border: 1px solid #eee;
   background: #fff;
   -webkit-overflow-scrolling: touch;
 }
+@media (max-width: 576px) {
+
+  .table {
+  max-width: 310px !important;
+}
+.custom-scrollbar {
+  max-width: 310px !important;
+}
+}
+
 
 .table tbody td {
   background: #fdfdfd;
