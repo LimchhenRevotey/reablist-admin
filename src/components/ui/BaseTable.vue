@@ -140,16 +140,6 @@ thead th {
   background: #fff;
   -webkit-overflow-scrolling: touch;
 }
-@media (max-width: 576px) {
-
-  .table {
-  max-width: 310px !important;
-}
-.custom-scrollbar {
-  max-width: 310px !important;
-}
-}
-
 
 .table tbody td {
   background: #fdfdfd;
@@ -198,5 +188,14 @@ thead th {
 .icon-btn {
   background: #eee;
   color: #13707f;
+}
+@media (max-width: 576px) {
+
+  .table {
+  max-width: 310px !important;
+}
+.custom-scrollbar {
+  max-width: 310px !important;
+}
 }
 </style>
