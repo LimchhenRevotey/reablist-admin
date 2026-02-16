@@ -9,15 +9,12 @@
     <!-- Card -->
     <div class="card shadow-lg border-0 text-center error-card">
 
-      <!-- Optional badge -->
-      <span class="error-badge">ERROR 404</span>
-
       <img src="/src/assets/images/notfound.png" alt="រកមិនឃើញទំព័រ" class="img-fluid mb-4 floating-image"
         style="max-height: 220px;width: 900px;" />
       <h5 class="text-muted mb-3">រកមិនឃើញទំព័រនេះទេ</h5>
 
       <p class="text-secondary mb-4">
-        សូមអភ័យទោស! ទំព័រដែលអ្នកកំពុងស្វែងរកមិនមាន ឬត្រូវបានផ្លាស់ប្តូរទីតាំងថ្មី។
+        សូមអភ័យទោស! ទំព័រដែលអ្នកកំពុងស្វែងរកមិនមាននោះទេ​ សូមផ្លាស់ប្តូរទីតាំងថ្មី។
       </p>
 
       <router-link to="/" class="btn btn-teal px-4">
@@ -29,19 +26,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "NotFound",
-};
-</script>
-
 <style scoped>
 .error-wrapper {
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, #0f766e, #14b8a6);
 }
-
 
 .error-bg {
   position: absolute;

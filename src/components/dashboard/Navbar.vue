@@ -171,7 +171,7 @@ onMounted(() => {
     background: #f1f3f5;
     border-radius: 12px;
     padding: 2px 8px;
-    transition: all 0.3s ease;
+    transition: all 0.7s ease;
     max-width: 420px;
 }
 

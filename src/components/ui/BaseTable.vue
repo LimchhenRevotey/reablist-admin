@@ -77,8 +77,10 @@ const changePage = (page) => {
                 {{ row[col.key] }}
               </slot>
             </td>
-            <td v-if="$slots.actions" class="d-flex justify-content-center align-content-center">
-              <slot name="actions" :row="row" />
+            <td v-if="$slots.actions" class="text-center">
+              <div class="d-flex justify-content-center align-items-center gap-2">
+                <slot name="actions" :row="row" />
+              </div>
             </td>
           </tr>
         </tbody>
@@ -189,13 +191,15 @@ thead th {
   background: #eee;
   color: #13707f;
 }
+
 @media (max-width: 576px) {
 
   .table {
-  max-width: 310px !important;
-}
-.custom-scrollbar {
-  max-width: 310px !important;
-}
+    max-width: 310px !important;
+  }
+
+  .custom-scrollbar {
+    max-width: 310px !important;
+  }
 }
 </style>
