@@ -9,6 +9,7 @@ import BaseButton from '@/components/ui/BaseButton.vue';
 const profileStore = useProfileStore();
 let loading = ref(false);
 let isUploading = ref(false);
+let isDeloading = ref(false);
 const fileInput = ref(null);
 const formData = reactive({
     fullname: '',
@@ -72,14 +73,14 @@ const handleAvatarUpload = async (event) => {
 // delete avatar
 const handleDeleteAvatar = async () => {
     try {
-        isUploading.value = true;
+        isDeloading.value = true;
         await api.delete('/auth/profile/avatar');
         await profileStore.getProfiles();
 
     } catch (error) {
         console.error("Delete failed:", error);
     } finally {
-        isUploading.value = false;
+        isDeloading.value = false;
     }
 };
 
@@ -121,9 +122,9 @@ const goBack = () => {
                                 </button>
 
                                 <button type="button" @click="handleDeleteAvatar"
-                                    :disabled="isUploading || !profileStore.dataProfiles?.avatar"
+                                    :disabled="isDeloading || !profileStore.dataProfiles?.avatar"
                                     class="btn btn-custom-light text-secondary btn-sm px-3 py-2 d-flex align-items-center gap-2">
-                                    <i class="bi bi-trash3 fs-5 fw-medium"></i> លុបរូបភាព
+                                    <i class="bi bi-trash3 fs-5 fw-medium"></i> {{ isDeloading ? 'កំពុងលុប...' : 'លុបរូបភាព' }}
                                 </button>
                             </div>
                         </div>
