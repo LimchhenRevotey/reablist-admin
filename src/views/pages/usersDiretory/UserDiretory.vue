@@ -4,13 +4,15 @@ import { useRouter } from "vue-router";
 import api from "@/api/api";
 import BaseTable from "@/components/ui/BaseTable.vue";
 import BaseModal from "@/components/ui/BaseModal.vue";
-import { UserPlus, Eye } from "lucide-vue-next";
+import { UserPlus, Eye, AlertCircle, ShieldAlert } from "lucide-vue-next";
+import BaseButton from "@/components/ui/BaseButton.vue";
 
 const router = useRouter();
 const isLoading = ref(false);
 const users = ref([]);
 const isShowModal = ref(false);
-
+const selectedUser = ref(null);
+const loading = ref(false);
 const columns = [
   { key: "avatar", label: "រូបភាព", class: "d-md-table-cell", bodyClass: "d-md-table-cell" },
   { key: "user", label: "ព័ត៌មានអ្នកប្រើប្រាស់", class: "text-start ps-4", bodyClass: "text-start ps-4 py-3" },
@@ -30,16 +32,28 @@ const getUsers = async () => {
   }
 }
 
-const toggleStatus = async (user) => {
+const handleToggleClick = (user) => {
+  selectedUser.value = user;
+  isShowModal.value = true;
+}
+
+const confirmToggleStatus = async () => {
+  const user = selectedUser.value;
   if (!user) return;
+
   const oldStatus = user.status;
   const newStatus = oldStatus === 'ACTIVATED' ? "DEACTIVATED" : "ACTIVATED";
-  user.status = newStatus;
+  loading.value = true;
+
   try {
     await api.put(`/users/${user.id}`, { status: newStatus });
+    user.status = newStatus;
+    isShowModal.value = false;
   } catch (error) {
-    user.status = oldStatus;
-    isShowModal.value = true;
+    console.error("Update failed:", error);
+    alert("មិនអាចផ្លាស់ប្តូរបានទេ!");
+  } finally {
+    loading.value = false;
   }
 }
 
@@ -78,7 +92,7 @@ onMounted(getUsers);
           </template>
 
           <template #cell-status="{ row }">
-            <span class="badge-status" @click="toggleStatus(row)"
+            <span class="badge-status" @click="handleToggleClick(row)"
               :class="row.status === 'ACTIVATED' ? 'active-st' : 'inactive-st'">
               <i class="bi me-1" :class="row.status === 'ACTIVATED' ? 'bi-check-circle-fill' : 'bi-x-circle-fill'"></i>
               {{ row.status }}
@@ -97,10 +111,31 @@ onMounted(getUsers);
     <BaseModal :show="isShowModal" @close="isShowModal = false">
       <template #modal>
         <div class="p-4 text-center">
-          <i class="bi bi-exclamation-triangle-fill text-danger fs-1"></i>
-          <h4 class="fw-bold mt-3">កំហុស!</h4>
-          <p class="text-muted">មិនអាចផ្លាស់ប្ដូរស្ថានភាពបានទេ។</p>
-          <button class="btn btn-danger w-100 rounded-3 mt-3" @click="isShowModal = false">បិទ</button>
+
+          <div v-if="selectedUser?.role?.name?.toLowerCase().includes('admin')">
+            <ShieldAlert :size="60" class="text-danger mb-3" />
+            <h4 class="fw-bold text-dark">សកម្មភាពត្រូវបានហាមឃាត់!</h4>
+            <p class="text-muted small">អ្នកមិនអាចផ្លាស់ប្តូរស្ថានភាពគណនីប្រភេទ <b>Admin System</b> បានឡើយ
+              ដើម្បីរក្សាសុវត្ថិភាព។</p>
+            <button class="btn btn-danger w-100 rounded-3 mt-3 py-2 fw-bold"
+              @click="isShowModal = false">យល់ព្រម</button>
+          </div>
+
+          <div v-else>
+            <AlertCircle :size="60" class="text-warning mb-3" />
+            <h4 class="fw-bold text-dark">បញ្ជាក់ការផ្លាស់ប្តូរ?</h4>
+            <p class="text-muted small">តើអ្នកពិតជាចង់ប្តូរស្ថានភាពរបស់ <b>{{ selectedUser?.fullname }}</b> មែនទេ?</p>
+            <div class="d-flex gap-2 mt-4">
+              <button class="btn btn-light border w-100 rounded-3 py-2 " @click="isShowModal = false">បោះបង់</button>
+              <button
+                class="btn btn-brand w-100 rounded-3 py-2 text-white fw-bold d-flex align-items-center justify-content-center gap-2"
+                :disabled="loading" @click="confirmToggleStatus">
+                <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ loading ? 'កំពុងប្តូរ...' : 'ប្តូរភ្លាម' }}
+              </button>
+            </div>
+          </div>
+
         </div>
       </template>
     </BaseModal>

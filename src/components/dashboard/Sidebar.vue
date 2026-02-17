@@ -82,19 +82,15 @@ const handleLogout = async () => {
                     <div class="mb-3 mt-2 icon-box text-danger opacity-75">
                         <i class="bi bi-exclamation-triangle-fill"></i>
                     </div>
-
                     <h2 class="fw-bold mb-2 text-dark">បញ្ជាក់ការចាកចេញ</h2>
-
                     <p class="text-muted mb-4 fs-6">
                         តើអ្នកពិតជាចង់ចាកចេញពីប្រព័ន្ធមែនទេ?
                     </p>
-
                     <div class="d-flex justify-content-center gap-3 mb-2">
                         <BaseButton type="button" background="btn-custom-cancel btn-lg-custom" text="text-black"
                             @click="closeModal">
                             បោះបង់
                         </BaseButton>
-
                         <BaseButton type="submit" :loading="loading" @click="handleLogout"
                             background=" btn-custom-delete btn-lg-custom" icon="bi bi-trash3-fill">
                             {{ loading ? 'កំពុងចាកចេញ...' : ' ចាកចេញ' }}
